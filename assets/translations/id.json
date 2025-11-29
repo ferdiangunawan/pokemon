@@ -36,7 +36,13 @@
         "male": "Jantan",
         "female": "Betina",
         "genderless": "Tanpa Jenis Kelamin",
-        "unknown": "Tidak Diketahui"
+        "unknown": "Tidak Diketahui",
+        "no_moves": "Tidak ada gerakan tersedia",
+        "no_moves_category": "Tidak ada gerakan dalam kategori ini",
+        "moves_level_up": "Naik Level",
+        "moves_tm_hm": "TM/HM",
+        "moves_tutor": "Tutor",
+        "moves_egg": "Telur"
     },
     "types": {
         "normal": "Normal",

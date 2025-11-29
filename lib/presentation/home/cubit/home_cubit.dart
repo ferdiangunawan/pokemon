@@ -115,8 +115,9 @@ class HomeCubit extends Cubit<HomeState> {
       // Match by type
       if (pokemon.types.any(
         (type) => type.name.toLowerCase().contains(lowerQuery),
-      ))
+      )) {
         return true;
+      }
       return false;
     }).toList();
   }

@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
@@ -10,8 +9,9 @@ import '../../../domain/index.dart';
 /// Stats tab showing Pokemon base stats with animated bars and enhanced design
 class StatsTab extends StatefulWidget {
   final Pokemon pokemon;
+  final bool isLandscape;
 
-  const StatsTab({super.key, required this.pokemon});
+  const StatsTab({super.key, required this.pokemon, this.isLandscape = false});
 
   @override
   State<StatsTab> createState() => _StatsTabState();
@@ -29,9 +29,16 @@ class _StatsTabState extends State<StatsTab>
       widget.pokemon.primaryType,
     );
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final isLandscape = widget.isLandscape;
+
+    // Responsive sizing
+    final basePadding = isLandscape ? size.width * 0.015 : 16.w;
+    final gapMedium = isLandscape ? size.height * 0.035 : 20.h;
+    final gapSmall = isLandscape ? size.height * 0.025 : 16.h;
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(basePadding),
       child: Column(
         children: [
           // Stats list with staggered animations
@@ -53,10 +60,11 @@ class _StatsTabState extends State<StatsTab>
                 stat: entry.value,
                 color: primaryColor,
                 index: entry.key,
+                isLandscape: isLandscape,
               ),
             );
           }),
-          Gap(20.h),
+          SizedBox(height: gapMedium),
           // Total stats with enhanced design
           TweenAnimationBuilder<double>(
             tween: Tween(begin: 0.0, end: 1.0),
@@ -74,29 +82,33 @@ class _StatsTabState extends State<StatsTab>
             child: _TotalStatBar(
               total: widget.pokemon.totalStats,
               color: primaryColor,
+              isLandscape: isLandscape,
             ),
           ),
-          Gap(16.h),
+          SizedBox(height: gapSmall),
           // Stat distribution chart hint
           Container(
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.all(isLandscape ? size.width * 0.012 : 12.w),
             decoration: BoxDecoration(
               color: theme.cardColor,
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(isLandscape ? 12.0 : 12.r),
               border: Border.all(color: theme.dividerColor.withOpacity(0.3)),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.info_outline_rounded,
-                  size: 18.sp,
+                  size: isLandscape ? size.height * 0.04 : 18.sp,
                   color: theme.hintColor,
                 ),
-                Gap(8.w),
+                SizedBox(width: isLandscape ? size.width * 0.008 : 8.w),
                 Expanded(
                   child: Text(
                     'Max stat value: ${ApiConstants.maxStatValue}',
-                    style: TextStyle(fontSize: 12.sp, color: theme.hintColor),
+                    style: TextStyle(
+                      fontSize: isLandscape ? size.height * 0.028 : 12.sp,
+                      color: theme.hintColor,
+                    ),
                   ),
                 ),
               ],
@@ -112,11 +124,13 @@ class _StatBar extends StatelessWidget {
   final PokemonStats stat;
   final Color color;
   final int index;
+  final bool isLandscape;
 
   const _StatBar({
     required this.stat,
     required this.color,
     required this.index,
+    this.isLandscape = false,
   });
 
   String get statLabel {
@@ -152,35 +166,46 @@ class _StatBar extends StatelessWidget {
     final progress = stat.baseStat / ApiConstants.maxStatValue;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final size = MediaQuery.of(context).size;
+
+    // Responsive sizing
+    final verticalPadding = isLandscape ? size.height * 0.018 : 10.h;
+    final labelWidth = isLandscape ? size.width * 0.08 : 70.w;
+    final valueWidth = isLandscape ? size.width * 0.05 : 45.w;
+    final labelFontSize = isLandscape ? size.height * 0.028 : 12.sp;
+    final valueFontSize = isLandscape ? size.height * 0.035 : 15.sp;
+    final barHeight = isLandscape ? size.height * 0.022 : 10.h;
+    final barRadius = isLandscape ? size.height * 0.011 : 5.r;
+    final gapWidth = isLandscape ? size.width * 0.015 : 16.w;
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
+      padding: EdgeInsets.symmetric(vertical: verticalPadding),
       child: Row(
         children: [
           SizedBox(
-            width: 70.w,
+            width: labelWidth,
             child: Text(
               statLabel,
               style: TextStyle(
                 color: theme.hintColor,
-                fontSize: 12.sp,
+                fontSize: labelFontSize,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
           SizedBox(
-            width: 45.w,
+            width: valueWidth,
             child: Text(
               stat.baseStat.toString(),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 15.sp,
+                fontSize: valueFontSize,
                 color: theme.textTheme.bodyLarge?.color,
               ),
               textAlign: TextAlign.right,
             ),
           ),
-          Gap(16.w),
+          SizedBox(width: gapWidth),
           Expanded(
             child: TweenAnimationBuilder<double>(
               duration: Duration(milliseconds: 600 + (index * 100)),
@@ -191,10 +216,10 @@ class _StatBar extends StatelessWidget {
                   children: [
                     // Background bar
                     Container(
-                      height: 10.h,
+                      height: barHeight,
                       decoration: BoxDecoration(
                         color: isDark ? Colors.grey[800] : Colors.grey[200],
-                        borderRadius: BorderRadius.circular(5.r),
+                        borderRadius: BorderRadius.circular(barRadius),
                       ),
                     ),
                     // Progress bar
@@ -202,12 +227,12 @@ class _StatBar extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       widthFactor: value.clamp(0.0, 1.0),
                       child: Container(
-                        height: 10.h,
+                        height: barHeight,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [statColor.withOpacity(0.7), statColor],
                           ),
-                          borderRadius: BorderRadius.circular(5.r),
+                          borderRadius: BorderRadius.circular(barRadius),
                           boxShadow: [
                             BoxShadow(
                               color: statColor.withOpacity(0.4),
@@ -232,8 +257,13 @@ class _StatBar extends StatelessWidget {
 class _TotalStatBar extends StatelessWidget {
   final int total;
   final Color color;
+  final bool isLandscape;
 
-  const _TotalStatBar({required this.total, required this.color});
+  const _TotalStatBar({
+    required this.total,
+    required this.color,
+    this.isLandscape = false,
+  });
 
   String get statRating {
     if (total >= 600) return 'Legendary';
@@ -258,9 +288,26 @@ class _TotalStatBar extends StatelessWidget {
     final progress = total / maxTotal;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final size = MediaQuery.of(context).size;
+
+    // Responsive sizing
+    final basePadding = isLandscape ? size.width * 0.015 : 16.w;
+    final borderRadius = isLandscape ? 16.0 : 16.r;
+    final iconPadding = isLandscape ? size.width * 0.008 : 8.w;
+    final iconRadius = isLandscape ? 8.0 : 8.r;
+    final iconSize = isLandscape ? size.height * 0.045 : 20.sp;
+    final gapWidth = isLandscape ? size.width * 0.012 : 12.w;
+    final titleFontSize = isLandscape ? size.height * 0.038 : 16.sp;
+    final totalFontSize = isLandscape ? size.height * 0.055 : 24.sp;
+    final ratingPaddingH = isLandscape ? size.width * 0.008 : 8.w;
+    final ratingPaddingV = isLandscape ? size.height * 0.004 : 2.h;
+    final ratingFontSize = isLandscape ? size.height * 0.025 : 10.sp;
+    final gapHeight = isLandscape ? size.height * 0.03 : 16.h;
+    final barHeight = isLandscape ? size.height * 0.03 : 14.h;
+    final barRadius = isLandscape ? size.height * 0.015 : 7.r;
 
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(basePadding),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -268,7 +315,7 @@ class _TotalStatBar extends StatelessWidget {
             color.withOpacity(isDark ? 0.1 : 0.05),
           ],
         ),
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(color: color.withOpacity(0.3), width: 1),
       ),
       child: Column(
@@ -279,23 +326,23 @@ class _TotalStatBar extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(8.w),
+                    padding: EdgeInsets.all(iconPadding),
                     decoration: BoxDecoration(
                       color: color.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(8.r),
+                      borderRadius: BorderRadius.circular(iconRadius),
                     ),
                     child: Icon(
                       Icons.bar_chart_rounded,
                       color: color,
-                      size: 20.sp,
+                      size: iconSize,
                     ),
                   ),
-                  Gap(12.w),
+                  SizedBox(width: gapWidth),
                   Text(
                     LocaleKeys.detailTotal.tr(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16.sp,
+                      fontSize: titleFontSize,
                     ),
                   ),
                 ],
@@ -307,23 +354,23 @@ class _TotalStatBar extends StatelessWidget {
                     total.toString(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 24.sp,
+                      fontSize: totalFontSize,
                       color: color,
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 8.w,
-                      vertical: 2.h,
+                      horizontal: ratingPaddingH,
+                      vertical: ratingPaddingV,
                     ),
                     decoration: BoxDecoration(
                       color: ratingColor.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(8.r),
+                      borderRadius: BorderRadius.circular(iconRadius),
                     ),
                     child: Text(
                       statRating,
                       style: TextStyle(
-                        fontSize: 10.sp,
+                        fontSize: ratingFontSize,
                         fontWeight: FontWeight.w600,
                         color: ratingColor,
                       ),
@@ -333,7 +380,7 @@ class _TotalStatBar extends StatelessWidget {
               ),
             ],
           ),
-          Gap(16.h),
+          SizedBox(height: gapHeight),
           TweenAnimationBuilder<double>(
             duration: const Duration(milliseconds: 1000),
             curve: Curves.easeOutCubic,
@@ -342,22 +389,22 @@ class _TotalStatBar extends StatelessWidget {
               return Stack(
                 children: [
                   Container(
-                    height: 14.h,
+                    height: barHeight,
                     decoration: BoxDecoration(
                       color: isDark ? Colors.grey[800] : Colors.grey[200],
-                      borderRadius: BorderRadius.circular(7.r),
+                      borderRadius: BorderRadius.circular(barRadius),
                     ),
                   ),
                   FractionallySizedBox(
                     alignment: Alignment.centerLeft,
                     widthFactor: value.clamp(0.0, 1.0),
                     child: Container(
-                      height: 14.h,
+                      height: barHeight,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [color.withOpacity(0.7), color],
                         ),
-                        borderRadius: BorderRadius.circular(7.r),
+                        borderRadius: BorderRadius.circular(barRadius),
                         boxShadow: [
                           BoxShadow(
                             color: color.withOpacity(0.5),
