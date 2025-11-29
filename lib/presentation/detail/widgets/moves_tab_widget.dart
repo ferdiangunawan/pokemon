@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
@@ -10,8 +9,9 @@ import '../../../domain/index.dart';
 /// Moves tab showing Pokemon moves list with enhanced design
 class MovesTab extends StatefulWidget {
   final Pokemon pokemon;
+  final bool isLandscape;
 
-  const MovesTab({super.key, required this.pokemon});
+  const MovesTab({super.key, required this.pokemon, this.isLandscape = false});
 
   @override
   State<MovesTab> createState() => _MovesTabState();
@@ -30,6 +30,19 @@ class _MovesTabState extends State<MovesTab>
     final primaryColor = PokemonTypeColors.getTypeColor(
       widget.pokemon.primaryType,
     );
+    final size = MediaQuery.of(context).size;
+    final isLandscape = widget.isLandscape;
+
+    // Responsive sizing
+    final containerPadding = isLandscape ? size.width * 0.025 : 24.w;
+    final iconSize = isLandscape ? size.height * 0.1 : 48.sp;
+    final gapHeight = isLandscape ? size.height * 0.03 : 16.h;
+    final marginH = isLandscape ? size.width * 0.015 : 16.w;
+    final marginV = isLandscape ? size.height * 0.015 : 8.h;
+    final tabHeight = isLandscape ? size.height * 0.1 : 48.h;
+    final tabFontSize = isLandscape ? size.height * 0.028 : 12.sp;
+    final borderRadius = isLandscape ? 12.0 : 12.r;
+    final tabPadding = isLandscape ? size.width * 0.004 : 4.w;
 
     if (moves.isEmpty) {
       return Center(
@@ -37,22 +50,23 @@ class _MovesTabState extends State<MovesTab>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(24.w),
+              padding: EdgeInsets.all(containerPadding),
               decoration: BoxDecoration(
                 color: theme.hintColor.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.flash_off_rounded,
-                size: 48.sp,
+                size: iconSize,
                 color: theme.hintColor.withOpacity(0.5),
               ),
             ),
-            Gap(16.h),
+            SizedBox(height: gapHeight),
             Text(
               LocaleKeys.detailNoMoves.tr(),
               style: theme.textTheme.bodyLarge?.copyWith(
                 color: theme.hintColor,
+                fontSize: isLandscape ? size.height * 0.035 : null,
               ),
             ),
           ],
@@ -77,11 +91,14 @@ class _MovesTabState extends State<MovesTab>
         children: [
           // Custom styled inner tab bar
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-            height: 48.h,
+            margin: EdgeInsets.symmetric(
+              horizontal: marginH,
+              vertical: marginV,
+            ),
+            height: tabHeight,
             decoration: BoxDecoration(
               color: theme.cardColor,
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.04),
@@ -93,43 +110,47 @@ class _MovesTabState extends State<MovesTab>
             child: TabBar(
               isScrollable: true,
               labelStyle: TextStyle(
-                fontSize: 12.sp,
+                fontSize: tabFontSize,
                 fontWeight: FontWeight.bold,
               ),
               unselectedLabelStyle: TextStyle(
-                fontSize: 12.sp,
+                fontSize: tabFontSize,
                 fontWeight: FontWeight.w500,
               ),
               labelColor: primaryColor,
               unselectedLabelColor: theme.hintColor,
               indicator: BoxDecoration(
                 color: primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(10.r),
+                borderRadius: BorderRadius.circular(isLandscape ? 10.0 : 10.r),
               ),
               indicatorSize: TabBarIndicatorSize.tab,
-              indicatorPadding: EdgeInsets.all(4.w),
+              indicatorPadding: EdgeInsets.all(tabPadding),
               dividerColor: Colors.transparent,
-              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              padding: EdgeInsets.symmetric(horizontal: tabPadding),
               tabs: [
                 _MoveTabLabel(
                   text: LocaleKeys.detailMovesLevelUp.tr(),
                   count: levelUpMoves.length,
                   icon: Icons.trending_up_rounded,
+                  isLandscape: isLandscape,
                 ),
                 _MoveTabLabel(
                   text: LocaleKeys.detailMovesTmHm.tr(),
                   count: machineMoves.length,
                   icon: Icons.album_rounded,
+                  isLandscape: isLandscape,
                 ),
                 _MoveTabLabel(
                   text: LocaleKeys.detailMovesTutor.tr(),
                   count: tutorMoves.length,
                   icon: Icons.school_rounded,
+                  isLandscape: isLandscape,
                 ),
                 _MoveTabLabel(
                   text: LocaleKeys.detailMovesEgg.tr(),
                   count: eggMoves.length,
                   icon: Icons.egg_rounded,
+                  isLandscape: isLandscape,
                 ),
               ],
             ),
@@ -141,10 +162,23 @@ class _MovesTabState extends State<MovesTab>
                   moves: levelUpMoves,
                   showLevel: true,
                   primaryColor: primaryColor,
+                  isLandscape: isLandscape,
                 ),
-                _MovesList(moves: machineMoves, primaryColor: primaryColor),
-                _MovesList(moves: tutorMoves, primaryColor: primaryColor),
-                _MovesList(moves: eggMoves, primaryColor: primaryColor),
+                _MovesList(
+                  moves: machineMoves,
+                  primaryColor: primaryColor,
+                  isLandscape: isLandscape,
+                ),
+                _MovesList(
+                  moves: tutorMoves,
+                  primaryColor: primaryColor,
+                  isLandscape: isLandscape,
+                ),
+                _MovesList(
+                  moves: eggMoves,
+                  primaryColor: primaryColor,
+                  isLandscape: isLandscape,
+                ),
               ],
             ),
           ),
@@ -158,21 +192,27 @@ class _MoveTabLabel extends StatelessWidget {
   final String text;
   final int count;
   final IconData icon;
+  final bool isLandscape;
 
   const _MoveTabLabel({
     required this.text,
     required this.count,
     required this.icon,
+    this.isLandscape = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final iconSize = isLandscape ? size.height * 0.035 : 16.sp;
+    final gapWidth = isLandscape ? size.width * 0.004 : 4.w;
+
     return Tab(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16.sp),
-          Gap(4.w),
+          Icon(icon, size: iconSize),
+          SizedBox(width: gapWidth),
           Text('$text ($count)'),
         ],
       ),
@@ -184,16 +224,41 @@ class _MovesList extends StatelessWidget {
   final List<PokemonMove> moves;
   final bool showLevel;
   final Color primaryColor;
+  final bool isLandscape;
 
   const _MovesList({
     required this.moves,
     this.showLevel = false,
     required this.primaryColor,
+    this.isLandscape = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+
+    // Responsive sizing
+    final emptyIconSize = isLandscape ? size.height * 0.08 : 40.sp;
+    final emptyGapHeight = isLandscape ? size.height * 0.025 : 12.h;
+    final emptyFontSize = isLandscape ? size.height * 0.032 : 14.sp;
+    final listPadding = isLandscape ? size.width * 0.015 : 16.w;
+    final itemMargin = isLandscape ? size.height * 0.02 : 10.h;
+    final borderRadius = isLandscape ? 14.0 : 14.r;
+    final itemPaddingH = isLandscape ? size.width * 0.015 : 16.w;
+    final itemPaddingV = isLandscape ? size.height * 0.025 : 14.h;
+    final levelWidth = isLandscape ? size.width * 0.05 : 48.w;
+    final levelPaddingV = isLandscape ? size.height * 0.012 : 6.h;
+    final levelPaddingH = isLandscape ? size.width * 0.004 : 4.w;
+    final levelBorderRadius = isLandscape ? 10.0 : 10.r;
+    final smallFontSize = isLandscape ? size.height * 0.024 : 10.sp;
+    final levelFontSize = isLandscape ? size.height * 0.032 : 14.sp;
+    final gapWidth = isLandscape ? size.width * 0.014 : 14.w;
+    final iconPadding = isLandscape ? size.width * 0.008 : 8.w;
+    final iconSize = isLandscape ? size.height * 0.04 : 18.sp;
+    final moveFontSize = isLandscape ? size.height * 0.035 : 15.sp;
+    final chevronSize = isLandscape ? size.height * 0.045 : 20.sp;
+    final gapSmall = isLandscape ? size.width * 0.012 : 12.w;
 
     if (moves.isEmpty) {
       return Center(
@@ -202,13 +267,13 @@ class _MovesList extends StatelessWidget {
           children: [
             Icon(
               Icons.hourglass_empty_rounded,
-              size: 40.sp,
+              size: emptyIconSize,
               color: theme.hintColor.withOpacity(0.4),
             ),
-            Gap(12.h),
+            SizedBox(height: emptyGapHeight),
             Text(
               LocaleKeys.detailNoMovesCategory.tr(),
-              style: TextStyle(color: theme.hintColor, fontSize: 14.sp),
+              style: TextStyle(color: theme.hintColor, fontSize: emptyFontSize),
             ),
           ],
         ),
@@ -216,7 +281,7 @@ class _MovesList extends StatelessWidget {
     }
 
     return ListView.builder(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(listPadding),
       itemCount: moves.length,
       itemBuilder: (context, index) {
         final move = moves[index];
@@ -235,10 +300,10 @@ class _MovesList extends StatelessWidget {
             );
           },
           child: Container(
-            margin: EdgeInsets.only(bottom: 10.h),
+            margin: EdgeInsets.only(bottom: itemMargin),
             decoration: BoxDecoration(
               color: theme.cardColor,
-              borderRadius: BorderRadius.circular(14.r),
+              borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.04),
@@ -253,20 +318,20 @@ class _MovesList extends StatelessWidget {
                 onTap: () {
                   // Could show move details in a bottom sheet
                 },
-                borderRadius: BorderRadius.circular(14.r),
+                borderRadius: BorderRadius.circular(borderRadius),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 14.h,
+                    horizontal: itemPaddingH,
+                    vertical: itemPaddingV,
                   ),
                   child: Row(
                     children: [
                       if (showLevel && move.levelLearnedAt != null) ...[
                         Container(
-                          width: 48.w,
+                          width: levelWidth,
                           padding: EdgeInsets.symmetric(
-                            vertical: 6.h,
-                            horizontal: 4.w,
+                            vertical: levelPaddingV,
+                            horizontal: levelPaddingH,
                           ),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
@@ -275,7 +340,9 @@ class _MovesList extends StatelessWidget {
                                 primaryColor.withOpacity(0.08),
                               ],
                             ),
-                            borderRadius: BorderRadius.circular(10.r),
+                            borderRadius: BorderRadius.circular(
+                              levelBorderRadius,
+                            ),
                             border: Border.all(
                               color: primaryColor.withOpacity(0.3),
                             ),
@@ -285,7 +352,7 @@ class _MovesList extends StatelessWidget {
                               Text(
                                 'Lv',
                                 style: TextStyle(
-                                  fontSize: 10.sp,
+                                  fontSize: smallFontSize,
                                   fontWeight: FontWeight.w500,
                                   color: primaryColor.withOpacity(0.7),
                                 ),
@@ -293,7 +360,7 @@ class _MovesList extends StatelessWidget {
                               Text(
                                 '${move.levelLearnedAt}',
                                 style: TextStyle(
-                                  fontSize: 14.sp,
+                                  fontSize: levelFontSize,
                                   fontWeight: FontWeight.bold,
                                   color: primaryColor,
                                 ),
@@ -301,27 +368,29 @@ class _MovesList extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Gap(14.w),
+                        SizedBox(width: gapWidth),
                       ],
                       // Move icon
                       Container(
-                        padding: EdgeInsets.all(8.w),
+                        padding: EdgeInsets.all(iconPadding),
                         decoration: BoxDecoration(
                           color: primaryColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(10.r),
+                          borderRadius: BorderRadius.circular(
+                            levelBorderRadius,
+                          ),
                         ),
                         child: Icon(
                           Icons.flash_on_rounded,
-                          size: 18.sp,
+                          size: iconSize,
                           color: primaryColor,
                         ),
                       ),
-                      Gap(12.w),
+                      SizedBox(width: gapSmall),
                       Expanded(
                         child: Text(
                           move.name.toReadable,
                           style: TextStyle(
-                            fontSize: 15.sp,
+                            fontSize: moveFontSize,
                             fontWeight: FontWeight.w600,
                             letterSpacing: -0.2,
                           ),
@@ -329,7 +398,7 @@ class _MovesList extends StatelessWidget {
                       ),
                       Icon(
                         Icons.chevron_right_rounded,
-                        size: 20.sp,
+                        size: chevronSize,
                         color: theme.hintColor.withOpacity(0.4),
                       ),
                     ],

@@ -1,4 +1,7 @@
-export 'about_tab.dart';
-export 'stats_tab.dart';
-export 'evolution_tab.dart';
-export 'moves_tab.dart';
+export 'about_tab_widget.dart';
+export 'stats_tab_widget.dart';
+export 'evolution_tab_widget.dart';
+export 'moves_tab_widget.dart';
+export 'pokemon_detail_header_widget.dart';
+export 'pokemon_detail_tab_content_widget.dart';
+export 'pokemon_detail_layout_widget.dart';

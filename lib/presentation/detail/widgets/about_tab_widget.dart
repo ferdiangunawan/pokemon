@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
@@ -11,8 +10,14 @@ import '../../../domain/index.dart';
 class AboutTab extends StatefulWidget {
   final Pokemon pokemon;
   final PokemonSpecies? species;
+  final bool isLandscape;
 
-  const AboutTab({super.key, required this.pokemon, this.species});
+  const AboutTab({
+    super.key,
+    required this.pokemon,
+    this.species,
+    this.isLandscape = false,
+  });
 
   @override
   State<AboutTab> createState() => _AboutTabState();
@@ -30,9 +35,18 @@ class _AboutTabState extends State<AboutTab>
     final primaryColor = PokemonTypeColors.getTypeColor(
       widget.pokemon.primaryType,
     );
+    final size = MediaQuery.of(context).size;
+    final isLandscape = widget.isLandscape;
+
+    // Responsive sizing - use raw values for landscape
+    final basePadding = isLandscape ? size.width * 0.015 : 16.w;
+    final iconSize = isLandscape ? size.height * 0.05 : 24.sp;
+    final gapSmall = isLandscape ? size.height * 0.015 : 12.w;
+    final gapMedium = isLandscape ? size.height * 0.025 : 24.h;
+    final borderRadius = isLandscape ? 16.0 : 16.r;
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(basePadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -51,10 +65,10 @@ class _AboutTabState extends State<AboutTab>
                 );
               },
               child: Container(
-                padding: EdgeInsets.all(16.w),
+                padding: EdgeInsets.all(basePadding),
                 decoration: BoxDecoration(
                   color: primaryColor.withOpacity(0.08),
-                  borderRadius: BorderRadius.circular(16.r),
+                  borderRadius: BorderRadius.circular(borderRadius),
                   border: Border.all(color: primaryColor.withOpacity(0.2)),
                 ),
                 child: Row(
@@ -63,9 +77,9 @@ class _AboutTabState extends State<AboutTab>
                     Icon(
                       Icons.format_quote_rounded,
                       color: primaryColor.withOpacity(0.5),
-                      size: 24.sp,
+                      size: iconSize,
                     ),
-                    Gap(12.w),
+                    SizedBox(width: gapSmall),
                     Expanded(
                       child: Text(
                         widget.species!.description!,
@@ -75,6 +89,7 @@ class _AboutTabState extends State<AboutTab>
                           ),
                           height: 1.6,
                           fontStyle: FontStyle.italic,
+                          fontSize: isLandscape ? size.height * 0.032 : null,
                         ),
                       ),
                     ),
@@ -82,11 +97,11 @@ class _AboutTabState extends State<AboutTab>
                 ),
               ),
             ),
-            Gap(24.h),
+            SizedBox(height: gapMedium),
           ],
 
           // Basic info section with staggered animation
-          _buildInfoSection(context, primaryColor, [
+          _buildInfoSection(context, primaryColor, isLandscape, [
             _InfoRow(
               label: LocaleKeys.detailSpecies.tr(),
               value: widget.species?.genus ?? 'Unknown',
@@ -110,17 +125,23 @@ class _AboutTabState extends State<AboutTab>
               icon: Icons.auto_awesome_rounded,
             ),
           ]),
-          Gap(24.h),
+          SizedBox(height: gapMedium),
 
           // Gender section with visual progress bar
           if (widget.species != null) ...[
             _SectionTitle(
               title: LocaleKeys.detailGender.tr(),
               icon: Icons.wc_rounded,
+              isLandscape: isLandscape,
             ),
-            Gap(12.h),
-            _buildGenderInfo(context, widget.species!, primaryColor),
-            Gap(24.h),
+            SizedBox(height: gapSmall),
+            _buildGenderInfo(
+              context,
+              widget.species!,
+              primaryColor,
+              isLandscape,
+            ),
+            SizedBox(height: gapMedium),
           ],
 
           // Egg groups with chips
@@ -129,11 +150,12 @@ class _AboutTabState extends State<AboutTab>
             _SectionTitle(
               title: LocaleKeys.detailEggGroups.tr(),
               icon: Icons.egg_rounded,
+              isLandscape: isLandscape,
             ),
-            Gap(12.h),
+            SizedBox(height: gapSmall),
             Wrap(
-              spacing: 10.w,
-              runSpacing: 8.h,
+              spacing: isLandscape ? size.width * 0.01 : 10.w,
+              runSpacing: isLandscape ? size.height * 0.015 : 8.h,
               children: widget.species!.eggGroups.asMap().entries.map((entry) {
                 return TweenAnimationBuilder<double>(
                   tween: Tween(begin: 0.0, end: 1.0),
@@ -147,8 +169,8 @@ class _AboutTabState extends State<AboutTab>
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 10.h,
+                      horizontal: isLandscape ? size.width * 0.015 : 16.w,
+                      vertical: isLandscape ? size.height * 0.02 : 10.h,
                     ),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -157,7 +179,7 @@ class _AboutTabState extends State<AboutTab>
                           primaryColor.withOpacity(0.05),
                         ],
                       ),
-                      borderRadius: BorderRadius.circular(12.r),
+                      borderRadius: BorderRadius.circular(borderRadius),
                       border: Border.all(color: primaryColor.withOpacity(0.3)),
                     ),
                     child: Text(
@@ -165,7 +187,7 @@ class _AboutTabState extends State<AboutTab>
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: primaryColor,
-                        fontSize: 13.sp,
+                        fontSize: isLandscape ? size.height * 0.03 : 13.sp,
                       ),
                     ),
                   ),
@@ -181,15 +203,19 @@ class _AboutTabState extends State<AboutTab>
   Widget _buildInfoSection(
     BuildContext context,
     Color primaryColor,
+    bool isLandscape,
     List<_InfoRow> rows,
   ) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final basePadding = isLandscape ? size.width * 0.015 : 16.w;
+    final borderRadius = isLandscape ? 20.0 : 20.r;
 
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(basePadding),
       decoration: BoxDecoration(
         color: theme.cardColor,
-        borderRadius: BorderRadius.circular(20.r),
+        borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
@@ -219,19 +245,29 @@ class _AboutTabState extends State<AboutTab>
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                  padding: EdgeInsets.symmetric(
+                    vertical: isLandscape ? size.height * 0.02 : 12.h,
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(8.w),
+                        padding: EdgeInsets.all(
+                          isLandscape ? size.width * 0.008 : 8.w,
+                        ),
                         decoration: BoxDecoration(
                           color: primaryColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(10.r),
+                          borderRadius: BorderRadius.circular(
+                            isLandscape ? 10.0 : 10.r,
+                          ),
                         ),
-                        child: Icon(row.icon, size: 18.sp, color: primaryColor),
+                        child: Icon(
+                          row.icon,
+                          size: isLandscape ? size.height * 0.04 : 18.sp,
+                          color: primaryColor,
+                        ),
                       ),
-                      Gap(14.w),
+                      SizedBox(width: isLandscape ? size.width * 0.012 : 14.w),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,16 +276,22 @@ class _AboutTabState extends State<AboutTab>
                               row.label,
                               style: TextStyle(
                                 color: theme.hintColor,
-                                fontSize: 12.sp,
+                                fontSize: isLandscape
+                                    ? size.height * 0.028
+                                    : 12.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Gap(4.h),
+                            SizedBox(
+                              height: isLandscape ? size.height * 0.008 : 4.h,
+                            ),
                             Text(
                               row.value,
                               style: TextStyle(
                                 color: theme.textTheme.bodyLarge?.color,
-                                fontSize: 15.sp,
+                                fontSize: isLandscape
+                                    ? size.height * 0.035
+                                    : 15.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -276,15 +318,21 @@ class _AboutTabState extends State<AboutTab>
     BuildContext context,
     PokemonSpecies species,
     Color primaryColor,
+    bool isLandscape,
   ) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final basePadding = isLandscape ? size.width * 0.015 : 16.w;
+    final borderRadius = isLandscape ? 16.0 : 16.r;
+    final iconSize = isLandscape ? size.height * 0.045 : 20.sp;
+    final gapSmall = isLandscape ? size.width * 0.008 : 8.w;
 
     if (species.isGenderless) {
       return Container(
-        padding: EdgeInsets.all(16.w),
+        padding: EdgeInsets.all(basePadding),
         decoration: BoxDecoration(
           color: theme.cardColor,
-          borderRadius: BorderRadius.circular(16.r),
+          borderRadius: BorderRadius.circular(borderRadius),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.04),
@@ -296,13 +344,18 @@ class _AboutTabState extends State<AboutTab>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.not_interested_rounded, color: Colors.grey, size: 20.sp),
-            Gap(8.w),
+            Icon(
+              Icons.not_interested_rounded,
+              color: Colors.grey,
+              size: iconSize,
+            ),
+            SizedBox(width: gapSmall),
             Text(
               LocaleKeys.detailGenderless.tr(),
               style: TextStyle(
                 color: Colors.grey[600],
                 fontWeight: FontWeight.w500,
+                fontSize: isLandscape ? size.height * 0.032 : null,
               ),
             ),
           ],
@@ -312,12 +365,16 @@ class _AboutTabState extends State<AboutTab>
 
     final femaleRatio = species.femaleRatio ?? 0;
     final maleRatio = species.maleRatio ?? 0;
+    final barHeight = isLandscape ? size.height * 0.025 : 12.h;
+    final barRadius = isLandscape ? size.height * 0.012 : 6.r;
+    final gapMedium = isLandscape ? size.height * 0.03 : 16.h;
+    final dividerHeight = isLandscape ? size.height * 0.06 : 30.h;
 
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(basePadding),
       decoration: BoxDecoration(
         color: theme.cardColor,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
@@ -335,9 +392,9 @@ class _AboutTabState extends State<AboutTab>
             curve: Curves.easeOutCubic,
             builder: (context, value, child) {
               return Container(
-                height: 12.h,
+                height: barHeight,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6.r),
+                  borderRadius: BorderRadius.circular(barRadius),
                 ),
                 child: Row(
                   children: [
@@ -347,9 +404,9 @@ class _AboutTabState extends State<AboutTab>
                         decoration: BoxDecoration(
                           color: Colors.blue[400],
                           borderRadius: BorderRadius.horizontal(
-                            left: Radius.circular(6.r),
+                            left: Radius.circular(barRadius),
                             right: femaleRatio == 0
-                                ? Radius.circular(6.r)
+                                ? Radius.circular(barRadius)
                                 : Radius.zero,
                           ),
                         ),
@@ -361,9 +418,9 @@ class _AboutTabState extends State<AboutTab>
                         decoration: BoxDecoration(
                           color: Colors.pink[300],
                           borderRadius: BorderRadius.horizontal(
-                            right: Radius.circular(6.r),
+                            right: Radius.circular(barRadius),
                             left: maleRatio == 0
-                                ? Radius.circular(6.r)
+                                ? Radius.circular(barRadius)
                                 : Radius.zero,
                           ),
                         ),
@@ -374,7 +431,7 @@ class _AboutTabState extends State<AboutTab>
               );
             },
           ),
-          Gap(16.h),
+          SizedBox(height: gapMedium),
           // Gender labels
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -384,10 +441,11 @@ class _AboutTabState extends State<AboutTab>
                 color: Colors.blue[400]!,
                 label: LocaleKeys.detailMale.tr(),
                 percentage: maleRatio,
+                isLandscape: isLandscape,
               ),
               Container(
                 width: 1,
-                height: 30.h,
+                height: dividerHeight,
                 color: theme.dividerColor.withOpacity(0.3),
               ),
               _GenderLabel(
@@ -395,6 +453,7 @@ class _AboutTabState extends State<AboutTab>
                 color: Colors.pink[300]!,
                 label: LocaleKeys.detailFemale.tr(),
                 percentage: femaleRatio,
+                isLandscape: isLandscape,
               ),
             ],
           ),
@@ -407,21 +466,30 @@ class _AboutTabState extends State<AboutTab>
 class _SectionTitle extends StatelessWidget {
   final String title;
   final IconData icon;
+  final bool isLandscape;
 
-  const _SectionTitle({required this.title, required this.icon});
+  const _SectionTitle({
+    required this.title,
+    required this.icon,
+    this.isLandscape = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final iconSize = isLandscape ? size.height * 0.045 : 20.sp;
+    final gapWidth = isLandscape ? size.width * 0.008 : 8.w;
 
     return Row(
       children: [
-        Icon(icon, size: 20.sp, color: theme.hintColor),
-        Gap(8.w),
+        Icon(icon, size: iconSize, color: theme.hintColor),
+        SizedBox(width: gapWidth),
         Text(
           title,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
+            fontSize: isLandscape ? size.height * 0.038 : null,
           ),
         ),
       ],
@@ -434,34 +502,46 @@ class _GenderLabel extends StatelessWidget {
   final Color color;
   final String label;
   final double percentage;
+  final bool isLandscape;
 
   const _GenderLabel({
     required this.icon,
     required this.color,
     required this.label,
     required this.percentage,
+    this.isLandscape = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final iconSize = isLandscape ? size.height * 0.05 : 22.sp;
+    final gapSmall = isLandscape ? size.width * 0.006 : 6.w;
+    final gapTiny = isLandscape ? size.height * 0.008 : 4.h;
+    final labelFontSize = isLandscape ? size.height * 0.03 : 13.sp;
+    final percentFontSize = isLandscape ? size.height * 0.038 : 16.sp;
+
     return Column(
       children: [
         Row(
           children: [
-            Icon(icon, color: color, size: 22.sp),
-            Gap(6.w),
+            Icon(icon, color: color, size: iconSize),
+            SizedBox(width: gapSmall),
             Text(
               label,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp),
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: labelFontSize,
+              ),
             ),
           ],
         ),
-        Gap(4.h),
+        SizedBox(height: gapTiny),
         Text(
           '${percentage.toStringAsFixed(1)}%',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 16.sp,
+            fontSize: percentFontSize,
             color: color,
           ),
         ),

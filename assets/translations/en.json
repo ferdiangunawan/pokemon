@@ -36,7 +36,13 @@
         "male": "Male",
         "female": "Female",
         "genderless": "Genderless",
-        "unknown": "Unknown"
+        "unknown": "Unknown",
+        "no_moves": "No moves available",
+        "no_moves_category": "No moves in this category",
+        "moves_level_up": "Level Up",
+        "moves_tm_hm": "TM/HM",
+        "moves_tutor": "Tutor",
+        "moves_egg": "Egg"
     },
     "types": {
         "normal": "Normal",
