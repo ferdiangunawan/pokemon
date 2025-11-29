@@ -1,0 +1,80 @@
+{
+    "app": {
+        "name": "Pokédex",
+        "title": "Pokédex"
+    },
+    "home": {
+        "title": "Pokédex",
+        "search_hint": "Search Pokémon...",
+        "no_results": "No Pokémon found",
+        "error": "Failed to load Pokémon",
+        "retry": "Retry",
+        "loading": "Loading Pokémon..."
+    },
+    "detail": {
+        "about": "About",
+        "base_stats": "Base Stats",
+        "evolution": "Evolution",
+        "moves": "Moves",
+        "species": "Species",
+        "height": "Height",
+        "weight": "Weight",
+        "abilities": "Abilities",
+        "gender": "Gender",
+        "egg_groups": "Egg Groups",
+        "egg_cycle": "Egg Cycle",
+        "hp": "HP",
+        "attack": "Attack",
+        "defense": "Defense",
+        "sp_atk": "Sp. Atk",
+        "sp_def": "Sp. Def",
+        "speed": "Speed",
+        "total": "Total",
+        "no_evolution": "This Pokémon does not evolve",
+        "evolves_to": "Evolves to",
+        "hidden_ability": "Hidden",
+        "male": "Male",
+        "female": "Female",
+        "genderless": "Genderless",
+        "unknown": "Unknown"
+    },
+    "types": {
+        "normal": "Normal",
+        "fire": "Fire",
+        "water": "Water",
+        "electric": "Electric",
+        "grass": "Grass",
+        "ice": "Ice",
+        "fighting": "Fighting",
+        "poison": "Poison",
+        "ground": "Ground",
+        "flying": "Flying",
+        "psychic": "Psychic",
+        "bug": "Bug",
+        "rock": "Rock",
+        "ghost": "Ghost",
+        "dragon": "Dragon",
+        "dark": "Dark",
+        "steel": "Steel",
+        "fairy": "Fairy"
+    },
+    "settings": {
+        "title": "Settings",
+        "theme": "Theme",
+        "theme_light": "Light",
+        "theme_dark": "Dark",
+        "theme_system": "System",
+        "language": "Language",
+        "english": "English",
+        "indonesian": "Indonesian"
+    },
+    "common": {
+        "error": "Something went wrong",
+        "no_data": "No data available",
+        "loading": "Loading...",
+        "cancel": "Cancel",
+        "ok": "OK",
+        "meters": "m",
+        "kilograms": "kg"
+    }
+}

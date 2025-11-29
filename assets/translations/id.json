@@ -1,0 +1,80 @@
+{
+    "app": {
+        "name": "Pokédex",
+        "title": "Pokédex"
+    },
+    "home": {
+        "title": "Pokédex",
+        "search_hint": "Cari Pokémon...",
+        "no_results": "Pokémon tidak ditemukan",
+        "error": "Gagal memuat Pokémon",
+        "retry": "Coba Lagi",
+        "loading": "Memuat Pokémon..."
+    },
+    "detail": {
+        "about": "Tentang",
+        "base_stats": "Statistik Dasar",
+        "evolution": "Evolusi",
+        "moves": "Gerakan",
+        "species": "Spesies",
+        "height": "Tinggi",
+        "weight": "Berat",
+        "abilities": "Kemampuan",
+        "gender": "Jenis Kelamin",
+        "egg_groups": "Kelompok Telur",
+        "egg_cycle": "Siklus Telur",
+        "hp": "HP",
+        "attack": "Serangan",
+        "defense": "Pertahanan",
+        "sp_atk": "Ser. Khusus",
+        "sp_def": "Per. Khusus",
+        "speed": "Kecepatan",
+        "total": "Total",
+        "no_evolution": "Pokémon ini tidak berevolusi",
+        "evolves_to": "Berevolusi menjadi",
+        "hidden_ability": "Tersembunyi",
+        "male": "Jantan",
+        "female": "Betina",
+        "genderless": "Tanpa Jenis Kelamin",
+        "unknown": "Tidak Diketahui"
+    },
+    "types": {
+        "normal": "Normal",
+        "fire": "Api",
+        "water": "Air",
+        "electric": "Listrik",
+        "grass": "Rumput",
+        "ice": "Es",
+        "fighting": "Pertarungan",
+        "poison": "Racun",
+        "ground": "Tanah",
+        "flying": "Terbang",
+        "psychic": "Psikis",
+        "bug": "Serangga",
+        "rock": "Batu",
+        "ghost": "Hantu",
+        "dragon": "Naga",
+        "dark": "Gelap",
+        "steel": "Baja",
+        "fairy": "Peri"
+    },
+    "settings": {
+        "title": "Pengaturan",
+        "theme": "Tema",
+        "theme_light": "Terang",
+        "theme_dark": "Gelap",
+        "theme_system": "Sistem",
+        "language": "Bahasa",
+        "english": "Inggris",
+        "indonesian": "Indonesia"
+    },
+    "common": {
+        "error": "Terjadi kesalahan",
+        "no_data": "Tidak ada data",
+        "loading": "Memuat...",
+        "cancel": "Batal",
+        "ok": "OK",
+        "meters": "m",
+        "kilograms": "kg"
+    }
+}
