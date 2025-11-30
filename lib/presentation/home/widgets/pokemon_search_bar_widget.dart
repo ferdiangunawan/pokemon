@@ -7,16 +7,16 @@ import '../../../generated/locale_keys.g.dart';
 import '../cubit/index.dart';
 
 /// Search bar widget for filtering Pokemon with enhanced design
-class PokemonSearchBar extends StatefulWidget {
+class PokemonSearchBarWidget extends StatefulWidget {
   final bool isLandscape;
 
-  const PokemonSearchBar({super.key, this.isLandscape = false});
+  const PokemonSearchBarWidget({super.key, this.isLandscape = false});
 
   @override
-  State<PokemonSearchBar> createState() => _PokemonSearchBarState();
+  State<PokemonSearchBarWidget> createState() => _PokemonSearchBarWidgetState();
 }
 
-class _PokemonSearchBarState extends State<PokemonSearchBar>
+class _PokemonSearchBarWidgetState extends State<PokemonSearchBarWidget>
     with SingleTickerProviderStateMixin {
   final _controller = TextEditingController();
   final _focusNode = FocusNode();
@@ -64,7 +64,7 @@ class _PokemonSearchBarState extends State<PokemonSearchBar>
     final isLandscape = widget.isLandscape;
     final size = MediaQuery.of(context).size;
 
-    final borderRadius = isLandscape ? size.height * 0.04 : 16.r;
+    final borderRadius = isLandscape ? size.height * 0.04 : 30.r;
     final iconSize = isLandscape ? size.height * 0.06 : 24.sp;
     final iconPadding = isLandscape ? size.height * 0.03 : 12.w;
     final horizontalPadding = isLandscape ? size.width * 0.02 : 16.w;
@@ -82,12 +82,13 @@ class _PokemonSearchBarState extends State<PokemonSearchBar>
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeOut,
             decoration: BoxDecoration(
-              color: isDark ? theme.cardColor.withValues(alpha: 0.8) : Colors.white,
+              color: isDark
+                  ? theme.cardColor.withValues(alpha: 0.8)
+                  : Colors.grey.shade100,
               borderRadius: BorderRadius.circular(borderRadius),
               border: Border.all(
-                color: _isFocused
-                    ? theme.primaryColor.withValues(alpha: 0.5)
-                    : Colors.transparent,
+                color:
+                    _isFocused ? theme.colorScheme.primary : Colors.transparent,
                 width: 2,
               ),
               boxShadow: [
@@ -101,72 +102,77 @@ class _PokemonSearchBarState extends State<PokemonSearchBar>
                 ),
               ],
             ),
-            child: TextField(
-              controller: _controller,
-              focusNode: _focusNode,
-              onChanged: (value) {
-                context.read<HomeCubit>().search(value);
-              },
-              style: theme.textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w500,
-                fontSize: isLandscape ? size.height * 0.045 : null,
-              ),
-              decoration: InputDecoration(
-                hintText: LocaleKeys.homeSearchHint.tr(),
-                hintStyle: TextStyle(
-                  color: theme.hintColor.withValues(alpha: 0.6),
-                  fontWeight: FontWeight.w400,
-                  fontSize: isLandscape ? size.height * 0.04 : null,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(borderRadius),
+              child: TextField(
+                controller: _controller,
+                focusNode: _focusNode,
+                onChanged: (value) {
+                  context.read<HomeCubit>().search(value);
+                },
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w500,
+                  fontSize: isLandscape ? size.height * 0.045 : null,
                 ),
-                prefixIcon: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding: EdgeInsets.all(iconPadding),
-                  child: Icon(
-                    Icons.search_rounded,
-                    color: _isFocused
-                        ? theme.primaryColor
-                        : theme.hintColor.withValues(alpha: 0.7),
-                    size: iconSize,
+                decoration: InputDecoration(
+                  hintText: LocaleKeys.homeSearchHint.tr(),
+                  hintStyle: TextStyle(
+                    color: theme.hintColor.withValues(alpha: 0.6),
+                    fontWeight: FontWeight.w400,
+                    fontSize: isLandscape ? size.height * 0.04 : null,
                   ),
-                ),
-                suffixIcon: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 200),
-                  transitionBuilder: (child, animation) {
-                    return ScaleTransition(
-                      scale: animation,
-                      child: FadeTransition(opacity: animation, child: child),
-                    );
-                  },
-                  child: state.searchQuery.isNotEmpty
-                      ? IconButton(
-                          key: const ValueKey('clear'),
-                          icon: Container(
-                            padding: EdgeInsets.all(clearPadding),
-                            decoration: BoxDecoration(
-                              color: theme.hintColor.withValues(alpha: 0.1),
-                              shape: BoxShape.circle,
+                  prefixIcon: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    padding: EdgeInsets.all(iconPadding),
+                    child: Icon(
+                      Icons.search_rounded,
+                      color: _isFocused
+                          ? theme.colorScheme.primary
+                          : isDark
+                              ? Colors.grey.shade400
+                              : theme.hintColor.withValues(alpha: 0.7),
+                      size: iconSize,
+                    ),
+                  ),
+                  suffixIcon: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    transitionBuilder: (child, animation) {
+                      return ScaleTransition(
+                        scale: animation,
+                        child: FadeTransition(opacity: animation, child: child),
+                      );
+                    },
+                    child: state.searchQuery.isNotEmpty
+                        ? IconButton(
+                            key: const ValueKey('clear'),
+                            icon: Container(
+                              padding: EdgeInsets.all(clearPadding),
+                              decoration: BoxDecoration(
+                                color: theme.hintColor.withValues(alpha: 0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.close_rounded,
+                                size: clearIconSize,
+                                color: theme.hintColor,
+                              ),
                             ),
-                            child: Icon(
-                              Icons.close_rounded,
-                              size: clearIconSize,
-                              color: theme.hintColor,
-                            ),
-                          ),
-                          onPressed: () {
-                            _controller.clear();
-                            context.read<HomeCubit>().clearSearch();
-                          },
-                        )
-                      : const SizedBox.shrink(key: ValueKey('empty')),
-                ),
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                focusedErrorBorder: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: horizontalPadding,
-                  vertical: verticalPadding,
+                            onPressed: () {
+                              _controller.clear();
+                              context.read<HomeCubit>().clearSearch();
+                            },
+                          )
+                        : const SizedBox.shrink(key: ValueKey('empty')),
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  focusedErrorBorder: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: horizontalPadding,
+                    vertical: verticalPadding,
+                  ),
                 ),
               ),
             ),

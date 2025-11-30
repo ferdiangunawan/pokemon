@@ -7,17 +7,17 @@ import '../../../common/index.dart';
 import '../../../domain/index.dart';
 
 /// Pokemon card widget for grid display with enhanced design and animations
-class PokemonCard extends StatefulWidget {
+class PokemonCardWidget extends StatefulWidget {
   final Pokemon pokemon;
   final int index;
 
-  const PokemonCard({super.key, required this.pokemon, this.index = 0});
+  const PokemonCardWidget({super.key, required this.pokemon, this.index = 0});
 
   @override
-  State<PokemonCard> createState() => _PokemonCardState();
+  State<PokemonCardWidget> createState() => _PokemonCardWidgetState();
 }
 
-class _PokemonCardState extends State<PokemonCard>
+class _PokemonCardWidgetState extends State<PokemonCardWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
@@ -68,6 +68,8 @@ class _PokemonCardState extends State<PokemonCard>
       onTapUp: _onTapUp,
       onTapCancel: _onTapCancel,
       onTap: () {
+        // Unfocus any focused widget (e.g., search bar) before navigating
+        FocusManager.instance.primaryFocus?.unfocus();
         context.push('/pokemon/${widget.pokemon.id}', extra: widget.pokemon);
       },
       child: ScaleTransition(
@@ -84,7 +86,9 @@ class _PokemonCardState extends State<PokemonCard>
             borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
               BoxShadow(
-                color: gradientColors.first.withValues(alpha: _isPressed ? 0.3 : 0.4),
+                color: gradientColors.first.withValues(
+                  alpha: _isPressed ? 0.3 : 0.4,
+                ),
                 blurRadius: _isPressed ? 8 : 16,
                 offset: Offset(0, _isPressed ? 4 : 8),
                 spreadRadius: _isPressed ? 0 : 2,
@@ -190,25 +194,61 @@ class _PokemonCardState extends State<PokemonCard>
                         alignment: Alignment.bottomRight,
                         child: Hero(
                           tag: 'pokemon-${widget.pokemon.id}',
-                          child: CachedNetworkImage(
-                            imageUrl: widget.pokemon.imageUrl,
-                            height: 85.h,
-                            width: 85.w,
-                            fit: BoxFit.contain,
-                            placeholder: (context, url) => SizedBox(
+                          flightShuttleBuilder:
+                              (
+                                BuildContext flightContext,
+                                Animation<double> animation,
+                                HeroFlightDirection flightDirection,
+                                BuildContext fromHeroContext,
+                                BuildContext toHeroContext,
+                              ) {
+                                return Material(
+                                  color: Colors.transparent,
+                                  child: CachedNetworkImage(
+                                    imageUrl: widget.pokemon.imageUrl,
+                                    height: 85.h,
+                                    width: 85.w,
+                                    fit: BoxFit.contain,
+                                    memCacheWidth: 256,
+                                    memCacheHeight: 256,
+                                    fadeInDuration: Duration.zero,
+                                    fadeOutDuration: Duration.zero,
+                                    errorWidget: (context, url, error) => Icon(
+                                      Icons.catching_pokemon,
+                                      size: 60.sp,
+                                      color: Colors.white.withValues(
+                                        alpha: 0.5,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                          child: Material(
+                            color: Colors.transparent,
+                            child: CachedNetworkImage(
+                              imageUrl: widget.pokemon.imageUrl,
                               height: 85.h,
                               width: 85.w,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Colors.white.withValues(alpha: 0.5),
+                              fit: BoxFit.contain,
+                              memCacheWidth: 256,
+                              memCacheHeight: 256,
+                              fadeInDuration: Duration.zero,
+                              fadeOutDuration: Duration.zero,
+                              placeholder: (context, url) => SizedBox(
+                                height: 85.h,
+                                width: 85.w,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white.withValues(alpha: 0.5),
+                                  ),
                                 ),
                               ),
-                            ),
-                            errorWidget: (context, url, error) => Icon(
-                              Icons.catching_pokemon,
-                              size: 60.sp,
-                              color: Colors.white.withValues(alpha: 0.5),
+                              errorWidget: (context, url, error) => Icon(
+                                Icons.catching_pokemon,
+                                size: 60.sp,
+                                color: Colors.white.withValues(alpha: 0.5),
+                              ),
                             ),
                           ),
                         ),
@@ -237,7 +277,10 @@ class _TypeChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.25),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.3), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.3),
+          width: 1,
+        ),
       ),
       child: Text(
         typeName.capitalize,

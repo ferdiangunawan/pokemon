@@ -12,10 +12,10 @@ import '../cubit/index.dart';
 import 'pokemon_card_widget.dart';
 
 /// Grid widget displaying Pokemon cards with staggered animations
-class PokemonGrid extends StatelessWidget {
+class PokemonGridWidget extends StatelessWidget {
   final bool isLandscape;
 
-  const PokemonGrid({super.key, this.isLandscape = false});
+  const PokemonGridWidget({super.key, this.isLandscape = false});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class PokemonGrid extends StatelessWidget {
           childAspectRatio: ResponsiveUtils.getCardAspectRatio(context),
         ),
         delegate: SliverChildBuilderDelegate((context, index) {
-          return AnimatedGridItem(
+          return AnimatedGridItemWidget(
             index: index,
             child: Shimmer.fromColors(
               baseColor: isDark ? Colors.grey[800]! : Colors.grey[300]!,
@@ -230,9 +230,9 @@ class PokemonGrid extends StatelessWidget {
             return const SizedBox.shrink();
           }
 
-          return AnimatedGridItem(
+          return AnimatedGridItemWidget(
             index: index,
-            child: PokemonCard(pokemon: pokemons[index], index: index),
+            child: PokemonCardWidget(pokemon: pokemons[index], index: index),
           );
         }, childCount: pokemons.length + (state.hasReachedMax ? 0 : 1)),
       ),

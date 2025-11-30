@@ -8,17 +8,21 @@ import '../../../core/theme/app_colors.dart';
 import '../../../domain/index.dart';
 
 /// Stats tab showing Pokemon base stats with animated bars and enhanced design
-class StatsTab extends StatefulWidget {
+class StatsTabWidget extends StatefulWidget {
   final Pokemon pokemon;
   final bool isLandscape;
 
-  const StatsTab({super.key, required this.pokemon, this.isLandscape = false});
+  const StatsTabWidget({
+    super.key,
+    required this.pokemon,
+    this.isLandscape = false,
+  });
 
   @override
-  State<StatsTab> createState() => _StatsTabState();
+  State<StatsTabWidget> createState() => _StatsTabWidgetState();
 }
 
-class _StatsTabState extends State<StatsTab>
+class _StatsTabWidgetState extends State<StatsTabWidget>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;

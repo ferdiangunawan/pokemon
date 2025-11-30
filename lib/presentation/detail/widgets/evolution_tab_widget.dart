@@ -11,17 +11,21 @@ import '../../../core/theme/app_colors.dart';
 import '../../../domain/index.dart';
 
 /// Evolution tab showing Pokemon evolution chain with enhanced animations
-class EvolutionTab extends StatefulWidget {
+class EvolutionTabWidget extends StatefulWidget {
   final EvolutionChain? evolution;
   final bool isLandscape;
 
-  const EvolutionTab({super.key, this.evolution, this.isLandscape = false});
+  const EvolutionTabWidget({
+    super.key,
+    this.evolution,
+    this.isLandscape = false,
+  });
 
   @override
-  State<EvolutionTab> createState() => _EvolutionTabState();
+  State<EvolutionTabWidget> createState() => _EvolutionTabWidgetState();
 }
 
-class _EvolutionTabState extends State<EvolutionTab>
+class _EvolutionTabWidgetState extends State<EvolutionTabWidget>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;

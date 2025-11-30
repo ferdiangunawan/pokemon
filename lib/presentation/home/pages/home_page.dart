@@ -134,8 +134,8 @@ class _HomePageContentState extends State<_HomePageContent>
                                             gradient: LinearGradient(
                                               colors: [
                                                 theme.primaryColor,
-                                                theme.primaryColor.withOpacity(
-                                                  0.8,
+                                                theme.primaryColor.withValues(
+                                                  alpha: 0.8,
                                                 ),
                                               ],
                                             ),
@@ -174,7 +174,7 @@ class _HomePageContentState extends State<_HomePageContent>
                                     // Action buttons
                                     Row(
                                       children: [
-                                        _ActionButton(
+                                        HomeActionButton(
                                           icon: Icons.language_rounded,
                                           onPressed: () =>
                                               _showLanguageDialog(context),
@@ -187,7 +187,7 @@ class _HomePageContentState extends State<_HomePageContent>
                                         ),
                                         BlocBuilder<ThemeCubit, ThemeState>(
                                           builder: (context, state) {
-                                            return _ActionButton(
+                                            return HomeActionButton(
                                               icon:
                                                   state.themeMode ==
                                                       ThemeMode.dark
@@ -208,7 +208,9 @@ class _HomePageContentState extends State<_HomePageContent>
                                   ],
                                 ),
                                 SizedBox(height: searchGap),
-                                PokemonSearchBar(isLandscape: isLandscape),
+                                PokemonSearchBarWidget(
+                                  isLandscape: isLandscape,
+                                ),
                                 SizedBox(height: bottomGap),
                               ],
                             ),
@@ -216,7 +218,7 @@ class _HomePageContentState extends State<_HomePageContent>
                         ),
                       ),
                       // Pokemon Grid
-                      PokemonGrid(isLandscape: isLandscape),
+                      PokemonGridWidget(isLandscape: isLandscape),
                       // Bottom spacing
                       SliverToBoxAdapter(
                         child: SizedBox(
@@ -237,115 +239,120 @@ class _HomePageContentState extends State<_HomePageContent>
   void _showLanguageDialog(BuildContext context) {
     HapticFeedback.lightImpact();
     final theme = Theme.of(context);
+    final orientation = MediaQuery.of(context).orientation;
+    final isLandscape = orientation == Orientation.landscape;
 
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (context) => Container(
-        decoration: BoxDecoration(
-          color: theme.scaffoldBackgroundColor,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(24.w),
+    if (isLandscape) {
+      final size = MediaQuery.of(context).size;
+      showDialog(
+        context: context,
+        builder: (context) => Dialog(
+          backgroundColor: theme.scaffoldBackgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Container(
+            width: size.width * 0.35,
+            constraints: BoxConstraints(maxWidth: 320),
+            padding: EdgeInsets.all(size.height * 0.04),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Handle bar
-                Center(
-                  child: Container(
-                    width: 40.w,
-                    height: 4.h,
-                    decoration: BoxDecoration(
-                      color: theme.hintColor.withValues(alpha: 0.3),
-                      borderRadius: BorderRadius.circular(2.r),
-                    ),
-                  ),
-                ),
-                Gap(20.h),
                 Text(
                   LocaleKeys.settingsLanguage.tr(),
-                  style: theme.textTheme.titleLarge?.copyWith(
+                  style: TextStyle(
+                    fontSize: size.height * 0.05,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Gap(20.h),
-                _LanguageOption(
+                SizedBox(height: size.height * 0.03),
+                _LandscapeLanguageOption(
                   title: LocaleKeys.settingsEnglish.tr(),
                   subtitle: 'English',
                   locale: const Locale('en'),
                   isSelected: context.locale == const Locale('en'),
                 ),
-                Gap(12.h),
-                _LanguageOption(
+                SizedBox(height: size.height * 0.02),
+                _LandscapeLanguageOption(
                   title: LocaleKeys.settingsIndonesian.tr(),
                   subtitle: 'Bahasa Indonesia',
                   locale: const Locale('id'),
                   isSelected: context.locale == const Locale('id'),
                 ),
-                Gap(16.h),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// Styled action button for app bar
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onPressed;
-  final bool isLandscape;
-
-  const _ActionButton({
-    required this.icon,
-    required this.onPressed,
-    this.isLandscape = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    final size = MediaQuery.of(context).size;
-
-    final borderRadius = isLandscape ? size.height * 0.03 : 12.r;
-    final padding = isLandscape ? size.height * 0.025 : 10.w;
-    final iconSize = isLandscape ? size.height * 0.06 : 22.sp;
-
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onPressed,
-        borderRadius: BorderRadius.circular(borderRadius),
-        child: Container(
-          padding: EdgeInsets.all(padding),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        builder: (context) => Container(
           decoration: BoxDecoration(
-            color: isDark
-                ? Colors.white.withValues(alpha: 0.1)
-                : Colors.black.withValues(alpha: 0.05),
-            borderRadius: BorderRadius.circular(borderRadius),
+            color: theme.scaffoldBackgroundColor,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
           ),
-          child: Icon(icon, size: iconSize, color: theme.iconTheme.color),
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(24.w),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Handle bar
+                  Center(
+                    child: Container(
+                      width: 40.w,
+                      height: 4.h,
+                      decoration: BoxDecoration(
+                        color: theme.hintColor.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(2.r),
+                      ),
+                    ),
+                  ),
+                  Gap(20.h),
+                  Text(
+                    LocaleKeys.settingsLanguage.tr(),
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Gap(20.h),
+                  LanguageOptionTile(
+                    title: LocaleKeys.settingsEnglish.tr(),
+                    subtitle: 'English',
+                    locale: const Locale('en'),
+                    isSelected: context.locale == const Locale('en'),
+                  ),
+                  Gap(12.h),
+                  LanguageOptionTile(
+                    title: LocaleKeys.settingsIndonesian.tr(),
+                    subtitle: 'Bahasa Indonesia',
+                    locale: const Locale('id'),
+                    isSelected: context.locale == const Locale('id'),
+                  ),
+                  Gap(16.h),
+                ],
+              ),
+            ),
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
 
-/// Language option tile with selection indicator
-class _LanguageOption extends StatelessWidget {
+/// Landscape-specific language option widget using raw pixel values
+class _LandscapeLanguageOption extends StatelessWidget {
   final String title;
   final String subtitle;
   final Locale locale;
   final bool isSelected;
 
-  const _LanguageOption({
+  const _LandscapeLanguageOption({
     required this.title,
     required this.subtitle,
     required this.locale,
@@ -355,6 +362,15 @@ class _LanguageOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final size = MediaQuery.of(context).size;
+
+    final titleColor = isSelected
+        ? (isDark ? Colors.white : theme.primaryColor)
+        : (isDark ? Colors.white : theme.textTheme.titleMedium?.color);
+    final subtitleColor = isDark
+        ? Colors.white.withValues(alpha: 0.7)
+        : theme.hintColor;
 
     return Material(
       color: Colors.transparent,
@@ -364,19 +380,27 @@ class _LanguageOption extends StatelessWidget {
           context.setLocale(locale);
           Navigator.pop(context);
         },
-        borderRadius: BorderRadius.circular(16.r),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          padding: EdgeInsets.all(16.w),
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: size.height * 0.03,
+            vertical: size.height * 0.025,
+          ),
           decoration: BoxDecoration(
             color: isSelected
-                ? theme.primaryColor.withValues(alpha: 0.1)
-                : theme.cardColor,
-            borderRadius: BorderRadius.circular(16.r),
+                ? (isDark
+                      ? Colors.red.withValues(alpha: 0.25)
+                      : theme.primaryColor.withValues(alpha: 0.1))
+                : (isDark
+                      ? Colors.white.withValues(alpha: 0.08)
+                      : theme.cardColor),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: isSelected
-                  ? theme.primaryColor
-                  : theme.dividerColor.withValues(alpha: 0.3),
+                  ? (isDark ? Colors.red : theme.primaryColor)
+                  : (isDark
+                        ? Colors.white.withValues(alpha: 0.15)
+                        : theme.dividerColor.withValues(alpha: 0.3)),
               width: isSelected ? 2 : 1,
             ),
           ),
@@ -385,39 +409,37 @@ class _LanguageOption extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       title,
-                      style: theme.textTheme.titleMedium?.copyWith(
+                      style: TextStyle(
+                        fontSize: size.height * 0.04,
                         fontWeight: isSelected
                             ? FontWeight.bold
                             : FontWeight.w500,
-                        color: isSelected ? theme.primaryColor : null,
+                        color: titleColor,
                       ),
                     ),
-                    Gap(2.h),
+                    SizedBox(height: size.height * 0.005),
                     Text(
                       subtitle,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.hintColor,
+                      style: TextStyle(
+                        fontSize: size.height * 0.03,
+                        color: subtitleColor,
                       ),
                     ),
                   ],
                 ),
               ),
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
-                child: isSelected
-                    ? Icon(
-                        Icons.check_circle_rounded,
-                        color: theme.primaryColor,
-                        size: 24.sp,
-                      )
-                    : Icon(
-                        Icons.circle_outlined,
-                        color: theme.hintColor.withValues(alpha: 0.5),
-                        size: 24.sp,
-                      ),
+              Icon(
+                isSelected ? Icons.check_circle_rounded : Icons.circle_outlined,
+                color: isSelected
+                    ? (isDark ? Colors.red : theme.primaryColor)
+                    : (isDark
+                          ? Colors.white.withValues(alpha: 0.4)
+                          : theme.hintColor.withValues(alpha: 0.5)),
+                size: size.height * 0.055,
               ),
             ],
           ),

@@ -7,17 +7,21 @@ import '../../../common/index.dart';
 import '../../../domain/index.dart';
 
 /// Moves tab showing Pokemon moves list with enhanced design
-class MovesTab extends StatefulWidget {
+class MovesTabWidget extends StatefulWidget {
   final Pokemon pokemon;
   final bool isLandscape;
 
-  const MovesTab({super.key, required this.pokemon, this.isLandscape = false});
+  const MovesTabWidget({
+    super.key,
+    required this.pokemon,
+    this.isLandscape = false,
+  });
 
   @override
-  State<MovesTab> createState() => _MovesTabState();
+  State<MovesTabWidget> createState() => _MovesTabWidgetState();
 }
 
-class _MovesTabState extends State<MovesTab>
+class _MovesTabWidgetState extends State<MovesTabWidget>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -126,7 +130,8 @@ class _MovesTabState extends State<MovesTab>
               indicatorSize: TabBarIndicatorSize.tab,
               indicatorPadding: EdgeInsets.all(tabPadding),
               dividerColor: Colors.transparent,
-              padding: EdgeInsets.symmetric(horizontal: tabPadding),
+              tabAlignment: TabAlignment.start,
+              padding: EdgeInsets.zero,
               tabs: [
                 _MoveTabLabel(
                   text: LocaleKeys.detailMovesLevelUp.tr(),
@@ -257,7 +262,6 @@ class _MovesList extends StatelessWidget {
     final iconPadding = isLandscape ? size.width * 0.008 : 8.w;
     final iconSize = isLandscape ? size.height * 0.04 : 18.sp;
     final moveFontSize = isLandscape ? size.height * 0.035 : 15.sp;
-    final chevronSize = isLandscape ? size.height * 0.045 : 20.sp;
     final gapSmall = isLandscape ? size.width * 0.012 : 12.w;
 
     if (moves.isEmpty) {
@@ -395,11 +399,6 @@ class _MovesList extends StatelessWidget {
                             letterSpacing: -0.2,
                           ),
                         ),
-                      ),
-                      Icon(
-                        Icons.chevron_right_rounded,
-                        size: chevronSize,
-                        color: theme.hintColor.withValues(alpha: 0.4),
                       ),
                     ],
                   ),

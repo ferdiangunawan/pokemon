@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 /// Animated grid item wrapper with staggered fade and slide animation
-class AnimatedGridItem extends StatefulWidget {
+class AnimatedGridItemWidget extends StatefulWidget {
   final int index;
   final Widget child;
   final Duration duration;
   final Duration delay;
 
-  const AnimatedGridItem({
+  const AnimatedGridItemWidget({
     super.key,
     required this.index,
     required this.child,
@@ -16,10 +16,10 @@ class AnimatedGridItem extends StatefulWidget {
   });
 
   @override
-  State<AnimatedGridItem> createState() => _AnimatedGridItemState();
+  State<AnimatedGridItemWidget> createState() => _AnimatedGridItemWidgetState();
 }
 
-class _AnimatedGridItemState extends State<AnimatedGridItem>
+class _AnimatedGridItemWidgetState extends State<AnimatedGridItemWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;

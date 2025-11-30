@@ -153,7 +153,10 @@ class PokemonTypeChipsWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.25),
             borderRadius: BorderRadius.circular(borderRadius),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.4), width: 1),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.4),
+              width: 1,
+            ),
           ),
           child: Text(
             type.name.capitalize,
@@ -191,22 +194,51 @@ class PokemonImageWidget extends StatelessWidget {
         ? size! * 0.6
         : (isLandscape ? screenSize.height * 0.15 : (imageSize * 0.6).sp);
 
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.8, end: 1.0),
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeOutBack,
-      builder: (context, value, child) {
-        // Clamp value to prevent curve overshoot issues
-        final clampedValue = value.clamp(0.0, 1.5);
-        return Transform.scale(scale: clampedValue, child: child);
-      },
-      child: Hero(
-        tag: 'pokemon-${pokemon.id}',
+    return Hero(
+      tag: 'pokemon-${pokemon.id}',
+      flightShuttleBuilder:
+          (
+            BuildContext flightContext,
+            Animation<double> animation,
+            HeroFlightDirection flightDirection,
+            BuildContext fromHeroContext,
+            BuildContext toHeroContext,
+          ) {
+            return AnimatedBuilder(
+              animation: animation,
+              builder: (context, child) {
+                return Material(
+                  color: Colors.transparent,
+                  child: CachedNetworkImage(
+                    imageUrl: pokemon.imageUrl,
+                    height: displayHeight,
+                    width: displayWidth,
+                    fit: BoxFit.contain,
+                    memCacheWidth: 512,
+                    memCacheHeight: 512,
+                    fadeInDuration: Duration.zero,
+                    fadeOutDuration: Duration.zero,
+                    errorWidget: (context, url, error) => Icon(
+                      Icons.catching_pokemon,
+                      size: errorIconSize,
+                      color: Colors.white.withValues(alpha: 0.5),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+      child: Material(
+        color: Colors.transparent,
         child: CachedNetworkImage(
           imageUrl: pokemon.imageUrl,
           height: displayHeight,
           width: displayWidth,
           fit: BoxFit.contain,
+          memCacheWidth: 512,
+          memCacheHeight: 512,
+          fadeInDuration: Duration.zero,
+          fadeOutDuration: Duration.zero,
           placeholder: (context, url) => SizedBox(
             height: displayHeight,
             width: displayWidth,
