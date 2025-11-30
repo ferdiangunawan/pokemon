@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../domain/index.dart';
 
 /// Evolution tab showing Pokemon evolution chain with enhanced animations
@@ -74,13 +75,13 @@ class _EvolutionTabState extends State<EvolutionTab>
             Container(
               padding: EdgeInsets.all(containerPadding),
               decoration: BoxDecoration(
-                color: theme.hintColor.withOpacity(0.1),
+                color: theme.hintColor.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.catching_pokemon,
                 size: iconSize,
-                color: theme.hintColor.withOpacity(0.5),
+                color: theme.hintColor.withValues(alpha: 0.5),
               ),
             ),
             SizedBox(height: gapHeight),
@@ -207,7 +208,7 @@ class _EvolutionCardState extends State<_EvolutionCard> {
           borderRadius: BorderRadius.circular(borderRadius),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(_isPressed ? 0.08 : 0.12),
+              color: Colors.black.withValues(alpha: _isPressed ? 0.08 : 0.12),
               blurRadius: _isPressed ? 8 : 16,
               offset: Offset(0, _isPressed ? 2 : 6),
             ),
@@ -227,8 +228,8 @@ class _EvolutionCardState extends State<_EvolutionCard> {
                     shape: BoxShape.circle,
                     gradient: RadialGradient(
                       colors: [
-                        theme.primaryColor.withOpacity(0.1),
-                        theme.primaryColor.withOpacity(0.02),
+                        theme.primaryColor.withValues(alpha: 0.1),
+                        theme.primaryColor.withValues(alpha: 0.02),
                       ],
                     ),
                   ),
@@ -278,7 +279,7 @@ class _EvolutionCardState extends State<_EvolutionCard> {
                 vertical: badgePaddingV,
               ),
               decoration: BoxDecoration(
-                color: theme.primaryColor.withOpacity(0.1),
+                color: theme.primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(badgeRadius),
               ),
               child: Text(
@@ -354,7 +355,7 @@ class _EvolutionArrow extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    theme.primaryColor.withOpacity(0.3),
+                    theme.primaryColor.withValues(alpha: 0.3),
                     theme.primaryColor,
                   ],
                 ),
@@ -368,7 +369,7 @@ class _EvolutionArrow extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: theme.primaryColor.withOpacity(0.3),
+                    color: theme.primaryColor.withValues(alpha: 0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -390,7 +391,9 @@ class _EvolutionArrow extends StatelessWidget {
               decoration: BoxDecoration(
                 color: theme.cardColor,
                 borderRadius: BorderRadius.circular(borderRadius),
-                border: Border.all(color: theme.dividerColor.withOpacity(0.3)),
+                border: Border.all(
+                  color: theme.dividerColor.withValues(alpha: 0.3),
+                ),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -434,7 +437,7 @@ class _EvolutionArrow extends StatelessWidget {
                     Icon(
                       Icons.auto_awesome_rounded,
                       size: iconSize,
-                      color: Colors.purple[400],
+                      color: AppColors.purple400,
                     ),
                     SizedBox(width: gapWidth),
                     Text(

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../domain/index.dart';
 
 /// Stats tab showing Pokemon base stats with animated bars and enhanced design
@@ -92,7 +93,9 @@ class _StatsTabState extends State<StatsTab>
             decoration: BoxDecoration(
               color: theme.cardColor,
               borderRadius: BorderRadius.circular(isLandscape ? 12.0 : 12.r),
-              border: Border.all(color: theme.dividerColor.withOpacity(0.3)),
+              border: Border.all(
+                color: theme.dividerColor.withValues(alpha: 0.3),
+              ),
             ),
             child: Row(
               children: [
@@ -154,11 +157,11 @@ class _StatBar extends StatelessWidget {
 
   Color get statColor {
     // Different colors based on stat value
-    if (stat.baseStat >= 150) return Colors.purple;
-    if (stat.baseStat >= 120) return Colors.green;
+    if (stat.baseStat >= 150) return AppColors.purple;
+    if (stat.baseStat >= 120) return AppColors.green;
     if (stat.baseStat >= 90) return color;
-    if (stat.baseStat >= 60) return Colors.orange;
-    return Colors.red;
+    if (stat.baseStat >= 60) return AppColors.orange;
+    return AppColors.red;
   }
 
   @override
@@ -230,12 +233,15 @@ class _StatBar extends StatelessWidget {
                         height: barHeight,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [statColor.withOpacity(0.7), statColor],
+                            colors: [
+                              statColor.withValues(alpha: 0.7),
+                              statColor,
+                            ],
                           ),
                           borderRadius: BorderRadius.circular(barRadius),
                           boxShadow: [
                             BoxShadow(
-                              color: statColor.withOpacity(0.4),
+                              color: statColor.withValues(alpha: 0.4),
                               blurRadius: 4,
                               offset: const Offset(0, 2),
                             ),
@@ -274,11 +280,11 @@ class _TotalStatBar extends StatelessWidget {
   }
 
   Color get ratingColor {
-    if (total >= 600) return Colors.purple;
-    if (total >= 500) return Colors.green;
-    if (total >= 400) return Colors.blue;
-    if (total >= 300) return Colors.orange;
-    return Colors.red;
+    if (total >= 600) return AppColors.purple;
+    if (total >= 500) return AppColors.green;
+    if (total >= 400) return AppColors.blue;
+    if (total >= 300) return AppColors.orange;
+    return AppColors.red;
   }
 
   @override
@@ -311,12 +317,12 @@ class _TotalStatBar extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            color.withOpacity(isDark ? 0.2 : 0.1),
-            color.withOpacity(isDark ? 0.1 : 0.05),
+            color.withValues(alpha: isDark ? 0.2 : 0.1),
+            color.withValues(alpha: isDark ? 0.1 : 0.05),
           ],
         ),
         borderRadius: BorderRadius.circular(borderRadius),
-        border: Border.all(color: color.withOpacity(0.3), width: 1),
+        border: Border.all(color: color.withValues(alpha: 0.3), width: 1),
       ),
       child: Column(
         children: [
@@ -328,7 +334,7 @@ class _TotalStatBar extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(iconPadding),
                     decoration: BoxDecoration(
-                      color: color.withOpacity(0.2),
+                      color: color.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(iconRadius),
                     ),
                     child: Icon(
@@ -364,7 +370,7 @@ class _TotalStatBar extends StatelessWidget {
                       vertical: ratingPaddingV,
                     ),
                     decoration: BoxDecoration(
-                      color: ratingColor.withOpacity(0.2),
+                      color: ratingColor.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(iconRadius),
                     ),
                     child: Text(
@@ -402,12 +408,12 @@ class _TotalStatBar extends StatelessWidget {
                       height: barHeight,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [color.withOpacity(0.7), color],
+                          colors: [color.withValues(alpha: 0.7), color],
                         ),
                         borderRadius: BorderRadius.circular(barRadius),
                         boxShadow: [
                           BoxShadow(
-                            color: color.withOpacity(0.5),
+                            color: color.withValues(alpha: 0.5),
                             blurRadius: 6,
                             offset: const Offset(0, 2),
                           ),

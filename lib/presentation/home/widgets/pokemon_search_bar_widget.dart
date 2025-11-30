@@ -82,19 +82,19 @@ class _PokemonSearchBarState extends State<PokemonSearchBar>
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeOut,
             decoration: BoxDecoration(
-              color: isDark ? theme.cardColor.withOpacity(0.8) : Colors.white,
+              color: isDark ? theme.cardColor.withValues(alpha: 0.8) : Colors.white,
               borderRadius: BorderRadius.circular(borderRadius),
               border: Border.all(
                 color: _isFocused
-                    ? theme.primaryColor.withOpacity(0.5)
+                    ? theme.primaryColor.withValues(alpha: 0.5)
                     : Colors.transparent,
                 width: 2,
               ),
               boxShadow: [
                 BoxShadow(
                   color: _isFocused
-                      ? theme.primaryColor.withOpacity(0.15)
-                      : Colors.black.withOpacity(0.08),
+                      ? theme.primaryColor.withValues(alpha: 0.15)
+                      : Colors.black.withValues(alpha: 0.08),
                   blurRadius: _isFocused ? 16 : 12,
                   offset: const Offset(0, 4),
                   spreadRadius: _isFocused ? 2 : 0,
@@ -114,7 +114,7 @@ class _PokemonSearchBarState extends State<PokemonSearchBar>
               decoration: InputDecoration(
                 hintText: LocaleKeys.homeSearchHint.tr(),
                 hintStyle: TextStyle(
-                  color: theme.hintColor.withOpacity(0.6),
+                  color: theme.hintColor.withValues(alpha: 0.6),
                   fontWeight: FontWeight.w400,
                   fontSize: isLandscape ? size.height * 0.04 : null,
                 ),
@@ -125,7 +125,7 @@ class _PokemonSearchBarState extends State<PokemonSearchBar>
                     Icons.search_rounded,
                     color: _isFocused
                         ? theme.primaryColor
-                        : theme.hintColor.withOpacity(0.7),
+                        : theme.hintColor.withValues(alpha: 0.7),
                     size: iconSize,
                   ),
                 ),
@@ -143,7 +143,7 @@ class _PokemonSearchBarState extends State<PokemonSearchBar>
                           icon: Container(
                             padding: EdgeInsets.all(clearPadding),
                             decoration: BoxDecoration(
-                              color: theme.hintColor.withOpacity(0.1),
+                              color: theme.hintColor.withValues(alpha: 0.1),
                               shape: BoxShape.circle,
                             ),
                             child: Icon(

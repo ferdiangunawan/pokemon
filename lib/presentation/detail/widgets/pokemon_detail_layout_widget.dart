@@ -48,7 +48,7 @@ class PokemonDetailPortraitLayoutWidget extends StatelessWidget {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 20,
                             offset: const Offset(0, -5),
                           ),
@@ -181,7 +181,7 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 20,
                       offset: const Offset(-5, 0),
                     ),
@@ -217,7 +217,7 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
         vertical: screenHeight * 0.025,
       ),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.15),
+        color: Colors.white.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -233,7 +233,7 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
             width: 1,
             height: screenHeight * 0.05,
             margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
-            color: Colors.white.withOpacity(0.3),
+            color: Colors.white.withValues(alpha: 0.3),
           ),
           _QuickStatItem(
             label: 'Weight',
@@ -269,7 +269,7 @@ class _QuickStatItem extends StatelessWidget {
         Icon(
           icon,
           size: baseFontSize * 0.9,
-          color: Colors.white.withOpacity(0.9),
+          color: Colors.white.withValues(alpha: 0.9),
         ),
         SizedBox(width: size.width * 0.015),
         Column(
@@ -279,7 +279,7 @@ class _QuickStatItem extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                color: Colors.white.withOpacity(0.8),
+                color: Colors.white.withValues(alpha: 0.8),
                 fontSize: baseFontSize * 0.55,
               ),
             ),

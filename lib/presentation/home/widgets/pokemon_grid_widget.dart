@@ -6,6 +6,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../shared/index.dart';
 import '../cubit/index.dart';
 import 'pokemon_card_widget.dart';
@@ -96,13 +97,13 @@ class PokemonGrid extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(20.w),
                   decoration: BoxDecoration(
-                    color: Colors.red.withOpacity(0.1),
+                    color: AppColors.error.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.error_outline_rounded,
                     size: 48.sp,
-                    color: Colors.red[400],
+                    color: AppColors.red400,
                   ),
                 ),
               ),
@@ -168,13 +169,13 @@ class PokemonGrid extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(24.w),
                   decoration: BoxDecoration(
-                    color: theme.primaryColor.withOpacity(0.1),
+                    color: theme.primaryColor.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.catching_pokemon,
                     size: 56.sp,
-                    color: theme.primaryColor.withOpacity(0.6),
+                    color: theme.primaryColor.withValues(alpha: 0.6),
                   ),
                 ),
               ),

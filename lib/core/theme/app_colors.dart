@@ -92,6 +92,40 @@ class AppColors {
   static const Color statBelowAverage = Color(0xFFEF4444);
 
   // ============================================
+  // Extended Semantic Colors
+  // ============================================
+
+  /// Purple shades
+  static const Color purple = Color(0xFFA855F7);
+  static const Color purple400 = Color(0xFFC084FC);
+  static const Color purple500 = Color(0xFFA855F7);
+  static const Color purple600 = Color(0xFF9333EA);
+
+  /// Green shades
+  static const Color green = Color(0xFF22C55E);
+  static const Color green400 = Color(0xFF4ADE80);
+  static const Color green500 = Color(0xFF22C55E);
+  static const Color green600 = Color(0xFF16A34A);
+
+  /// Blue shades
+  static const Color blue = Color(0xFF3B82F6);
+  static const Color blue400 = Color(0xFF60A5FA);
+  static const Color blue500 = Color(0xFF3B82F6);
+  static const Color blue600 = Color(0xFF2563EB);
+
+  /// Orange shades
+  static const Color orange = Color(0xFFF59E0B);
+  static const Color orange400 = Color(0xFFFBBF24);
+  static const Color orange500 = Color(0xFFF59E0B);
+  static const Color orange600 = Color(0xFFEA580C);
+
+  /// Red shades
+  static const Color red = Color(0xFFEF4444);
+  static const Color red400 = Color(0xFFF87171);
+  static const Color red500 = Color(0xFFEF4444);
+  static const Color red600 = Color(0xFFDC2626);
+
+  // ============================================
   // Neutral Colors
   // ============================================
 
@@ -114,9 +148,10 @@ class AppColors {
   // Overlay & Opacity Colors
   // ============================================
 
-  static Color overlay(double opacity) => Colors.black.withOpacity(opacity);
+  static Color overlay(double opacity) =>
+      Colors.black.withValues(alpha: opacity);
   static Color overlayLight(double opacity) =>
-      Colors.white.withOpacity(opacity);
+      Colors.white.withValues(alpha: opacity);
 
   // ============================================
   // Border Colors
@@ -129,15 +164,15 @@ class AppColors {
   // Shadow Colors
   // ============================================
 
-  static Color shadowLight = Colors.black.withOpacity(0.08);
-  static Color shadowDark = Colors.black.withOpacity(0.24);
+  static Color shadowLight = Colors.black.withValues(alpha: 0.08);
+  static Color shadowDark = Colors.black.withValues(alpha: 0.24);
 
   // ============================================
   // Focus & Selection Colors
   // ============================================
 
-  static Color focusBorderLight = primaryLight.withOpacity(0.5);
-  static Color focusBorderDark = primaryDark.withOpacity(0.5);
+  static Color focusBorderLight = primaryLight.withValues(alpha: 0.5);
+  static Color focusBorderDark = primaryDark.withValues(alpha: 0.5);
 
   // ============================================
   // Helper Methods

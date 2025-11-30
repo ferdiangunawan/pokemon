@@ -39,13 +39,13 @@ class _MovesTabState extends State<MovesTab>
             Container(
               padding: EdgeInsets.all(24.w),
               decoration: BoxDecoration(
-                color: theme.hintColor.withOpacity(0.1),
+                color: theme.hintColor.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.flash_off_rounded,
                 size: 48.sp,
-                color: theme.hintColor.withOpacity(0.5),
+                color: theme.hintColor.withValues(alpha: 0.5),
               ),
             ),
             Gap(16.h),
@@ -84,7 +84,7 @@ class _MovesTabState extends State<MovesTab>
               borderRadius: BorderRadius.circular(12.r),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
+                  color: Colors.black.withValues(alpha: 0.04),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -103,7 +103,7 @@ class _MovesTabState extends State<MovesTab>
               labelColor: primaryColor,
               unselectedLabelColor: theme.hintColor,
               indicator: BoxDecoration(
-                color: primaryColor.withOpacity(0.1),
+                color: primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10.r),
               ),
               indicatorSize: TabBarIndicatorSize.tab,
@@ -203,7 +203,7 @@ class _MovesList extends StatelessWidget {
             Icon(
               Icons.hourglass_empty_rounded,
               size: 40.sp,
-              color: theme.hintColor.withOpacity(0.4),
+              color: theme.hintColor.withValues(alpha: 0.4),
             ),
             Gap(12.h),
             Text(
@@ -241,7 +241,7 @@ class _MovesList extends StatelessWidget {
               borderRadius: BorderRadius.circular(14.r),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
+                  color: Colors.black.withValues(alpha: 0.04),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -271,13 +271,13 @@ class _MovesList extends StatelessWidget {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                primaryColor.withOpacity(0.15),
-                                primaryColor.withOpacity(0.08),
+                                primaryColor.withValues(alpha: 0.15),
+                                primaryColor.withValues(alpha: 0.08),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(10.r),
                             border: Border.all(
-                              color: primaryColor.withOpacity(0.3),
+                              color: primaryColor.withValues(alpha: 0.3),
                             ),
                           ),
                           child: Column(
@@ -287,7 +287,7 @@ class _MovesList extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w500,
-                                  color: primaryColor.withOpacity(0.7),
+                                  color: primaryColor.withValues(alpha: 0.7),
                                 ),
                               ),
                               Text(
@@ -307,7 +307,7 @@ class _MovesList extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.all(8.w),
                         decoration: BoxDecoration(
-                          color: primaryColor.withOpacity(0.1),
+                          color: primaryColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(10.r),
                         ),
                         child: Icon(
@@ -330,7 +330,7 @@ class _MovesList extends StatelessWidget {
                       Icon(
                         Icons.chevron_right_rounded,
                         size: 20.sp,
-                        color: theme.hintColor.withOpacity(0.4),
+                        color: theme.hintColor.withValues(alpha: 0.4),
                       ),
                     ],
                   ),

@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../domain/index.dart';
 
 /// About tab showing Pokemon details with enhanced design
@@ -53,16 +54,18 @@ class _AboutTabState extends State<AboutTab>
               child: Container(
                 padding: EdgeInsets.all(16.w),
                 decoration: BoxDecoration(
-                  color: primaryColor.withOpacity(0.08),
+                  color: primaryColor.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(16.r),
-                  border: Border.all(color: primaryColor.withOpacity(0.2)),
+                  border: Border.all(
+                    color: primaryColor.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Icon(
                       Icons.format_quote_rounded,
-                      color: primaryColor.withOpacity(0.5),
+                      color: primaryColor.withValues(alpha: 0.5),
                       size: 24.sp,
                     ),
                     Gap(12.w),
@@ -153,12 +156,14 @@ class _AboutTabState extends State<AboutTab>
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          primaryColor.withOpacity(0.1),
-                          primaryColor.withOpacity(0.05),
+                          primaryColor.withValues(alpha: 0.1),
+                          primaryColor.withValues(alpha: 0.05),
                         ],
                       ),
                       borderRadius: BorderRadius.circular(12.r),
-                      border: Border.all(color: primaryColor.withOpacity(0.3)),
+                      border: Border.all(
+                        color: primaryColor.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: Text(
                       entry.value.toReadable,
@@ -192,7 +197,7 @@ class _AboutTabState extends State<AboutTab>
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),
@@ -226,7 +231,7 @@ class _AboutTabState extends State<AboutTab>
                       Container(
                         padding: EdgeInsets.all(8.w),
                         decoration: BoxDecoration(
-                          color: primaryColor.withOpacity(0.1),
+                          color: primaryColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(10.r),
                         ),
                         child: Icon(row.icon, size: 18.sp, color: primaryColor),
@@ -261,7 +266,7 @@ class _AboutTabState extends State<AboutTab>
                 ),
                 if (!isLast)
                   Divider(
-                    color: theme.dividerColor.withOpacity(0.3),
+                    color: theme.dividerColor.withValues(alpha: 0.3),
                     height: 1,
                   ),
               ],
@@ -287,7 +292,7 @@ class _AboutTabState extends State<AboutTab>
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -320,7 +325,7 @@ class _AboutTabState extends State<AboutTab>
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -345,7 +350,7 @@ class _AboutTabState extends State<AboutTab>
                       flex: (maleRatio * value).round(),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.blue[400],
+                          color: AppColors.male,
                           borderRadius: BorderRadius.horizontal(
                             left: Radius.circular(6.r),
                             right: femaleRatio == 0
@@ -381,14 +386,14 @@ class _AboutTabState extends State<AboutTab>
             children: [
               _GenderLabel(
                 icon: Icons.male_rounded,
-                color: Colors.blue[400]!,
+                color: AppColors.male,
                 label: LocaleKeys.detailMale.tr(),
                 percentage: maleRatio,
               ),
               Container(
                 width: 1,
                 height: 30.h,
-                color: theme.dividerColor.withOpacity(0.3),
+                color: theme.dividerColor.withValues(alpha: 0.3),
               ),
               _GenderLabel(
                 icon: Icons.female_rounded,

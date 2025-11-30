@@ -145,7 +145,7 @@ class _HomePageContentState extends State<_HomePageContent>
                                             boxShadow: [
                                               BoxShadow(
                                                 color: theme.primaryColor
-                                                    .withOpacity(0.3),
+                                                    .withValues(alpha: 0.3),
                                                 blurRadius: 8,
                                                 offset: const Offset(0, 4),
                                               ),
@@ -260,7 +260,7 @@ class _HomePageContentState extends State<_HomePageContent>
                     width: 40.w,
                     height: 4.h,
                     decoration: BoxDecoration(
-                      color: theme.hintColor.withOpacity(0.3),
+                      color: theme.hintColor.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(2.r),
                     ),
                   ),
@@ -327,8 +327,8 @@ class _ActionButton extends StatelessWidget {
           padding: EdgeInsets.all(padding),
           decoration: BoxDecoration(
             color: isDark
-                ? Colors.white.withOpacity(0.1)
-                : Colors.black.withOpacity(0.05),
+                ? Colors.white.withValues(alpha: 0.1)
+                : Colors.black.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(borderRadius),
           ),
           child: Icon(icon, size: iconSize, color: theme.iconTheme.color),
@@ -370,13 +370,13 @@ class _LanguageOption extends StatelessWidget {
           padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(
             color: isSelected
-                ? theme.primaryColor.withOpacity(0.1)
+                ? theme.primaryColor.withValues(alpha: 0.1)
                 : theme.cardColor,
             borderRadius: BorderRadius.circular(16.r),
             border: Border.all(
               color: isSelected
                   ? theme.primaryColor
-                  : theme.dividerColor.withOpacity(0.3),
+                  : theme.dividerColor.withValues(alpha: 0.3),
               width: isSelected ? 2 : 1,
             ),
           ),
@@ -415,7 +415,7 @@ class _LanguageOption extends StatelessWidget {
                       )
                     : Icon(
                         Icons.circle_outlined,
-                        color: theme.hintColor.withOpacity(0.5),
+                        color: theme.hintColor.withValues(alpha: 0.5),
                         size: 24.sp,
                       ),
               ),
