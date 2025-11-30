@@ -28,7 +28,7 @@ Future<void> main() async {
       supportedLocales: const [Locale('en'), Locale('id')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
-      child: const PokemonApp(),
+      child: const App(),
     ),
   );
 }

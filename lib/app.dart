@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/index.dart';
 
 /// Main application widget
-class PokemonApp extends StatelessWidget {
-  const PokemonApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../domain/index.dart';
 import '../cubit/index.dart';
+import '../widgets/quick_stat_item.dart';
 import 'pokemon_detail_header_widget.dart';
 import 'pokemon_detail_tab_content_widget.dart';
 
@@ -224,7 +225,7 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _QuickStatItem(
+          QuickStatItem(
             label: 'Height',
             value: pokemon.formattedHeight,
             icon: Icons.height_rounded,
@@ -235,65 +236,13 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
             color: Colors.white.withValues(alpha: 0.3),
           ),
-          _QuickStatItem(
+          QuickStatItem(
             label: 'Weight',
             value: pokemon.formattedWeight,
             icon: Icons.fitness_center_rounded,
           ),
         ],
       ),
-    );
-  }
-}
-
-class _QuickStatItem extends StatelessWidget {
-  final String label;
-  final String value;
-  final IconData icon;
-
-  const _QuickStatItem({
-    required this.label,
-    required this.value,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isLandscape = size.width > size.height;
-    final baseFontSize = isLandscape ? size.height * 0.045 : size.width * 0.035;
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          size: baseFontSize * 0.9,
-          color: Colors.white.withValues(alpha: 0.9),
-        ),
-        SizedBox(width: size.width * 0.015),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                color: Colors.white.withValues(alpha: 0.8),
-                fontSize: baseFontSize * 0.55,
-              ),
-            ),
-            Text(
-              value,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: baseFontSize * 0.7,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }

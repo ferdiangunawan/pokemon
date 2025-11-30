@@ -24,7 +24,7 @@ class AppRouter {
       GoRoute(
         path: '/pokemon/:id',
         name: 'pokemon-detail',
-        pageBuilder: (context, state) {
+        builder: (context, state) {
           final idString = state.pathParameters['id'] ?? '1';
           final id = int.tryParse(idString) ?? 1;
 
@@ -34,42 +34,7 @@ class AppRouter {
             pokemon = state.extra as Pokemon;
           }
 
-          return CustomTransitionPage(
-            key: state.pageKey,
-            child: PokemonDetailPage(pokemonId: id, pokemon: pokemon),
-            transitionDuration: const Duration(milliseconds: 350),
-            reverseTransitionDuration: const Duration(milliseconds: 300),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-                  // Slide up with fade for entering
-                  final slideAnimation =
-                      Tween<Offset>(
-                        begin: const Offset(0, 0.08),
-                        end: Offset.zero,
-                      ).animate(
-                        CurvedAnimation(
-                          parent: animation,
-                          curve: Curves.easeOutCubic,
-                        ),
-                      );
-
-                  final fadeAnimation = Tween<double>(begin: 0.0, end: 1.0)
-                      .animate(
-                        CurvedAnimation(
-                          parent: animation,
-                          curve: Curves.easeOut,
-                        ),
-                      );
-
-                  return FadeTransition(
-                    opacity: fadeAnimation,
-                    child: SlideTransition(
-                      position: slideAnimation,
-                      child: child,
-                    ),
-                  );
-                },
-          );
+          return PokemonDetailPage(pokemonId: id, pokemon: pokemon);
         },
       ),
     ],

@@ -92,17 +92,17 @@ class PokemonDetailTabContentWidget extends StatelessWidget {
           Expanded(
             child: TabBarView(
               children: [
-                AboutTab(
+                AboutTabWidget(
                   pokemon: pokemon,
                   species: state.species,
                   isLandscape: isLandscape,
                 ),
-                StatsTab(pokemon: pokemon, isLandscape: isLandscape),
-                EvolutionTab(
+                StatsTabWidget(pokemon: pokemon, isLandscape: isLandscape),
+                EvolutionTabWidget(
                   evolution: state.evolution,
                   isLandscape: isLandscape,
                 ),
-                MovesTab(pokemon: pokemon, isLandscape: isLandscape),
+                MovesTabWidget(pokemon: pokemon, isLandscape: isLandscape),
               ],
             ),
           ),

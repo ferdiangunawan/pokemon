@@ -101,16 +101,23 @@ class _PokemonDetailContentState extends State<_PokemonDetailContent>
           backgroundColor: typeColor,
           body: SafeArea(
             bottom: false,
-            child: Column(
-              children: [
-                Expanded(
-                  child: _buildContent(context, pokemon, typeColor, state),
-                ),
-                Container(
-                  height: MediaQuery.of(context).padding.bottom,
-                  color: theme.scaffoldBackgroundColor,
-                ),
-              ],
+            child: OrientationBuilder(
+              builder: (context, orientation) {
+                final isLandscape = orientation == Orientation.landscape;
+                return Column(
+                  children: [
+                    Expanded(
+                      child: _buildContent(context, pokemon, typeColor, state),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).padding.bottom,
+                      color: isLandscape
+                          ? typeColor
+                          : theme.scaffoldBackgroundColor,
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         );

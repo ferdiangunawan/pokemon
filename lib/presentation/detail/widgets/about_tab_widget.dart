@@ -8,12 +8,12 @@ import '../../../core/theme/app_colors.dart';
 import '../../../domain/index.dart';
 
 /// About tab showing Pokemon details with enhanced design
-class AboutTab extends StatefulWidget {
+class AboutTabWidget extends StatefulWidget {
   final Pokemon pokemon;
   final PokemonSpecies? species;
   final bool isLandscape;
 
-  const AboutTab({
+  const AboutTabWidget({
     super.key,
     required this.pokemon,
     this.species,
@@ -21,10 +21,10 @@ class AboutTab extends StatefulWidget {
   });
 
   @override
-  State<AboutTab> createState() => _AboutTabState();
+  State<AboutTabWidget> createState() => _AboutTabWidgetState();
 }
 
-class _AboutTabState extends State<AboutTab>
+class _AboutTabWidgetState extends State<AboutTabWidget>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
