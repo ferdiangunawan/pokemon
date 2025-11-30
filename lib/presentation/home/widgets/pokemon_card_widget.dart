@@ -84,7 +84,7 @@ class _PokemonCardState extends State<PokemonCard>
             borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
               BoxShadow(
-                color: gradientColors.first.withOpacity(_isPressed ? 0.3 : 0.4),
+                color: gradientColors.first.withValues(alpha: _isPressed ? 0.3 : 0.4),
                 blurRadius: _isPressed ? 8 : 16,
                 offset: Offset(0, _isPressed ? 4 : 8),
                 spreadRadius: _isPressed ? 0 : 2,
@@ -117,7 +117,7 @@ class _PokemonCardState extends State<PokemonCard>
                     height: 60.h,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white.withOpacity(0.08),
+                      color: Colors.white.withValues(alpha: 0.08),
                     ),
                   ),
                 ),
@@ -140,13 +140,13 @@ class _PokemonCardState extends State<PokemonCard>
                                 vertical: 2.h,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.15),
+                                color: Colors.black.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(8.r),
                               ),
                               child: Text(
                                 '#${widget.pokemon.id.toString().padLeft(3, '0')}',
                                 style: TextStyle(
-                                  color: Colors.white.withOpacity(0.9),
+                                  color: Colors.white.withValues(alpha: 0.9),
                                   fontSize: 11.sp,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 0.5,
@@ -164,7 +164,7 @@ class _PokemonCardState extends State<PokemonCard>
                                 letterSpacing: 0.3,
                                 shadows: [
                                   Shadow(
-                                    color: Colors.black.withOpacity(0.2),
+                                    color: Colors.black.withValues(alpha: 0.2),
                                     offset: const Offset(0, 1),
                                     blurRadius: 2,
                                   ),
@@ -201,14 +201,14 @@ class _PokemonCardState extends State<PokemonCard>
                               child: Center(
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
-                                  color: Colors.white.withOpacity(0.5),
+                                  color: Colors.white.withValues(alpha: 0.5),
                                 ),
                               ),
                             ),
                             errorWidget: (context, url, error) => Icon(
                               Icons.catching_pokemon,
                               size: 60.sp,
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white.withValues(alpha: 0.5),
                             ),
                           ),
                         ),
@@ -235,9 +235,9 @@ class _TypeChip extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.25),
+        color: Colors.white.withValues(alpha: 0.25),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: Colors.white.withOpacity(0.3), width: 1),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.3), width: 1),
       ),
       child: Text(
         typeName.capitalize,

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../domain/index.dart';
 
 /// About tab showing Pokemon details with enhanced design
@@ -67,16 +68,18 @@ class _AboutTabState extends State<AboutTab>
               child: Container(
                 padding: EdgeInsets.all(basePadding),
                 decoration: BoxDecoration(
-                  color: primaryColor.withOpacity(0.08),
+                  color: primaryColor.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(borderRadius),
-                  border: Border.all(color: primaryColor.withOpacity(0.2)),
+                  border: Border.all(
+                    color: primaryColor.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Icon(
                       Icons.format_quote_rounded,
-                      color: primaryColor.withOpacity(0.5),
+                      color: primaryColor.withValues(alpha: 0.5),
                       size: iconSize,
                     ),
                     SizedBox(width: gapSmall),
@@ -175,12 +178,14 @@ class _AboutTabState extends State<AboutTab>
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          primaryColor.withOpacity(0.1),
-                          primaryColor.withOpacity(0.05),
+                          primaryColor.withValues(alpha: 0.1),
+                          primaryColor.withValues(alpha: 0.05),
                         ],
                       ),
                       borderRadius: BorderRadius.circular(borderRadius),
-                      border: Border.all(color: primaryColor.withOpacity(0.3)),
+                      border: Border.all(
+                        color: primaryColor.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: Text(
                       entry.value.toReadable,
@@ -218,7 +223,7 @@ class _AboutTabState extends State<AboutTab>
         borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),
@@ -256,7 +261,7 @@ class _AboutTabState extends State<AboutTab>
                           isLandscape ? size.width * 0.008 : 8.w,
                         ),
                         decoration: BoxDecoration(
-                          color: primaryColor.withOpacity(0.1),
+                          color: primaryColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(
                             isLandscape ? 10.0 : 10.r,
                           ),
@@ -303,7 +308,7 @@ class _AboutTabState extends State<AboutTab>
                 ),
                 if (!isLast)
                   Divider(
-                    color: theme.dividerColor.withOpacity(0.3),
+                    color: theme.dividerColor.withValues(alpha: 0.3),
                     height: 1,
                   ),
               ],
@@ -335,7 +340,7 @@ class _AboutTabState extends State<AboutTab>
           borderRadius: BorderRadius.circular(borderRadius),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -377,7 +382,7 @@ class _AboutTabState extends State<AboutTab>
         borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -402,7 +407,7 @@ class _AboutTabState extends State<AboutTab>
                       flex: (maleRatio * value).round(),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.blue[400],
+                          color: AppColors.male,
                           borderRadius: BorderRadius.horizontal(
                             left: Radius.circular(barRadius),
                             right: femaleRatio == 0
@@ -438,7 +443,7 @@ class _AboutTabState extends State<AboutTab>
             children: [
               _GenderLabel(
                 icon: Icons.male_rounded,
-                color: Colors.blue[400]!,
+                color: AppColors.male,
                 label: LocaleKeys.detailMale.tr(),
                 percentage: maleRatio,
                 isLandscape: isLandscape,
@@ -446,7 +451,7 @@ class _AboutTabState extends State<AboutTab>
               Container(
                 width: 1,
                 height: dividerHeight,
-                color: theme.dividerColor.withOpacity(0.3),
+                color: theme.dividerColor.withValues(alpha: 0.3),
               ),
               _GenderLabel(
                 icon: Icons.female_rounded,

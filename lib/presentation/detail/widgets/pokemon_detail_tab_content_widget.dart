@@ -52,7 +52,7 @@ class PokemonDetailTabContentWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 10,
                   offset: const Offset(0, 2),
                 ),
@@ -74,8 +74,8 @@ class PokemonDetailTabContentWidget extends StatelessWidget {
               ),
               indicator: BoxDecoration(
                 color: theme.brightness == Brightness.dark
-                    ? theme.primaryColorLight.withOpacity(0.15)
-                    : theme.primaryColor.withOpacity(0.1),
+                    ? theme.primaryColorLight.withValues(alpha: 0.15)
+                    : theme.primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(indicatorRadius),
               ),
               indicatorSize: TabBarIndicatorSize.tab,

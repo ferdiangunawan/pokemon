@@ -8,6 +8,7 @@ import 'package:gap/gap.dart';
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
 import '../../../core/index.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../domain/index.dart';
 import '../cubit/index.dart';
 import '../widgets/index.dart';
@@ -134,7 +135,7 @@ class _PokemonDetailContentState extends State<_PokemonDetailContent>
                   child: Icon(
                     Icons.catching_pokemon,
                     size: 64.sp,
-                    color: theme.primaryColor.withOpacity(0.6),
+                    color: theme.primaryColor.withValues(alpha: 0.6),
                   ),
                 );
               },
@@ -167,13 +168,13 @@ class _PokemonDetailContentState extends State<_PokemonDetailContent>
               Container(
                 padding: EdgeInsets.all(24.w),
                 decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.1),
+                  color: AppColors.error.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.error_outline_rounded,
                   size: 48.sp,
-                  color: Colors.red[400],
+                  color: AppColors.red400,
                 ),
               ),
               Gap(24.h),

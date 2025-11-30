@@ -43,7 +43,7 @@ class PokemonDetailHeaderWidget extends StatelessWidget {
         children: [
           // Back button with better styling
           Material(
-            color: Colors.white.withOpacity(0.2),
+            color: Colors.white.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(buttonRadius),
             child: InkWell(
               onTap: () {
@@ -76,7 +76,7 @@ class PokemonDetailHeaderWidget extends StatelessWidget {
                     letterSpacing: -0.5,
                     shadows: [
                       Shadow(
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withValues(alpha: 0.2),
                         offset: const Offset(0, 2),
                         blurRadius: 4,
                       ),
@@ -99,7 +99,7 @@ class PokemonDetailHeaderWidget extends StatelessWidget {
               vertical: badgePaddingV,
             ),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(buttonRadius),
             ),
             child: Text(
@@ -151,9 +151,9 @@ class PokemonTypeChipsWidget extends StatelessWidget {
             vertical: paddingV,
           ),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.25),
+            color: Colors.white.withValues(alpha: 0.25),
             borderRadius: BorderRadius.circular(borderRadius),
-            border: Border.all(color: Colors.white.withOpacity(0.4), width: 1),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.4), width: 1),
           ),
           child: Text(
             type.name.capitalize,
@@ -213,14 +213,14 @@ class PokemonImageWidget extends StatelessWidget {
             child: Center(
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                color: Colors.white.withOpacity(0.6),
+                color: Colors.white.withValues(alpha: 0.6),
               ),
             ),
           ),
           errorWidget: (context, url, error) => Icon(
             Icons.catching_pokemon,
             size: errorIconSize,
-            color: Colors.white.withOpacity(0.5),
+            color: Colors.white.withValues(alpha: 0.5),
           ),
         ),
       ),
