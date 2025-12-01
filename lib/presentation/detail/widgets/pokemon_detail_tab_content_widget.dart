@@ -26,16 +26,15 @@ class PokemonDetailTabContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final size = MediaQuery.of(context).size;
 
     // Use raw values for landscape, ScreenUtil for portrait
-    final marginH = isLandscape ? size.width * 0.015 : 16.w;
-    final marginV = isLandscape ? size.height * 0.015 : 8.h;
+    final marginH = isLandscape ? 16.0 : 16.w;
+    final marginV = isLandscape ? 12.0 : 8.h;
     final borderRadius = isLandscape ? 16.0 : 16.r;
     final indicatorRadius = isLandscape ? 12.0 : 12.r;
-    final indicatorPadding = isLandscape ? size.width * 0.005 : 4.w;
-    final labelFontSize = isLandscape ? size.height * 0.035 : 13.sp;
-    final unselectedFontSize = isLandscape ? size.height * 0.032 : 13.sp;
+    final indicatorPadding = isLandscape ? 4.0 : 4.w;
+    final labelFontSize = isLandscape ? 13.0 : 13.sp;
+    final unselectedFontSize = isLandscape ? 13.0 : 13.sp;
 
     return DefaultTabController(
       length: 4,
@@ -59,7 +58,7 @@ class PokemonDetailTabContentWidget extends StatelessWidget {
               ],
             ),
             child: TabBar(
-              isScrollable: isLandscape,
+              isScrollable: false,
               labelColor: theme.brightness == Brightness.dark
                   ? theme.primaryColorLight
                   : theme.primaryColor,
