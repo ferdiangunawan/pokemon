@@ -5,4 +5,5 @@ export 'moves_tab_widget.dart';
 export 'pokemon_detail_header_widget.dart';
 export 'pokemon_detail_tab_content_widget.dart';
 export 'pokemon_detail_layout_widget.dart';
+export 'pokemon_detail_states_widget.dart';
 export 'quick_stat_item.dart';

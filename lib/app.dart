@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/index.dart';
+import 'generated/locale_keys.g.dart';
 
 /// Main application widget
 class App extends StatelessWidget {
@@ -21,7 +22,7 @@ class App extends StatelessWidget {
           child: BlocBuilder<ThemeCubit, ThemeState>(
             builder: (context, themeState) {
               return MaterialApp.router(
-                title: 'Pokémon App',
+                title: LocaleKeys.appName.tr(),
                 debugShowCheckedModeBanner: false,
 
                 // Localization

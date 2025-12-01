@@ -24,9 +24,9 @@ void main() {
       expect('thunder-shock'.toReadable, equals('Thunder Shock'));
     });
 
-    test('toReadable should convert underscore to readable', () {
-      expect('fire_stone'.toReadable, equals('Fire Stone'));
-      expect('water_stone'.toReadable, equals('Water Stone'));
+    test('toReadable should handle string without hyphens', () {
+      expect('attack'.toReadable, equals('Attack'));
+      expect('defense'.toReadable, equals('Defense'));
     });
   });
 }

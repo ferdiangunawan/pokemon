@@ -165,6 +165,7 @@ class _StatBar extends StatelessWidget {
     if (stat.baseStat >= 120) return AppColors.green;
     if (stat.baseStat >= 90) return color;
     if (stat.baseStat >= 60) return AppColors.orange;
+
     return AppColors.red;
   }
 
@@ -276,11 +277,11 @@ class _TotalStatBar extends StatelessWidget {
   });
 
   String get statRating {
-    if (total >= 600) return 'Legendary';
-    if (total >= 500) return 'Excellent';
-    if (total >= 400) return 'Good';
-    if (total >= 300) return 'Average';
-    return 'Below Average';
+    if (total >= 600) return LocaleKeys.statsRatingLegendary.tr();
+    if (total >= 500) return LocaleKeys.statsRatingExcellent.tr();
+    if (total >= 400) return LocaleKeys.statsRatingGood.tr();
+    if (total >= 300) return LocaleKeys.statsRatingAverage.tr();
+    return LocaleKeys.statsRatingBelowAverage.tr();
   }
 
   Color get ratingColor {

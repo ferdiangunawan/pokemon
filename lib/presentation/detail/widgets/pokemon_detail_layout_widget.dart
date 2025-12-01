@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../generated/locale_keys.g.dart';
 import '../../../domain/index.dart';
 import '../cubit/index.dart';
 import '../widgets/quick_stat_item.dart';
@@ -226,7 +228,7 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           QuickStatItem(
-            label: 'Height',
+            label: LocaleKeys.detailHeight.tr(),
             value: pokemon.formattedHeight,
             icon: Icons.height_rounded,
           ),
@@ -237,7 +239,7 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
             color: Colors.white.withValues(alpha: 0.3),
           ),
           QuickStatItem(
-            label: 'Weight',
+            label: LocaleKeys.detailWeight.tr(),
             value: pokemon.formattedWeight,
             icon: Icons.fitness_center_rounded,
           ),

@@ -107,7 +107,7 @@ class _AboutTabWidgetState extends State<AboutTabWidget>
           _buildInfoSection(context, primaryColor, isLandscape, [
             _InfoRow(
               label: LocaleKeys.detailSpecies.tr(),
-              value: widget.species?.genus ?? 'Unknown',
+              value: widget.species?.genus ?? LocaleKeys.detailUnknown.tr(),
               icon: Icons.category_rounded,
             ),
             _InfoRow(

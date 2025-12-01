@@ -81,6 +81,15 @@
         "cancel": "Batal",
         "ok": "OK",
         "meters": "m",
-        "kilograms": "kg"
+        "kilograms": "kg",
+        "page_not_found": "Halaman tidak ditemukan",
+        "go_home": "Kembali ke Beranda"
+    },
+    "stats": {
+        "rating_legendary": "Legendaris",
+        "rating_excellent": "Luar Biasa",
+        "rating_good": "Bagus",
+        "rating_average": "Rata-rata",
+        "rating_below_average": "Di Bawah Rata-rata"
     }
 }

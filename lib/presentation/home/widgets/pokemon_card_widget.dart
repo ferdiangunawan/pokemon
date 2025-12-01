@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../common/index.dart';
 import '../../../domain/index.dart';
+import 'pokemon_type_chip_widget.dart';
 
 /// Pokemon card widget for grid display with enhanced design and animations
 class PokemonCardWidget extends StatefulWidget {
@@ -183,7 +184,9 @@ class _PokemonCardWidgetState extends State<PokemonCardWidget>
                               spacing: 6.w,
                               runSpacing: 4.h,
                               children: widget.pokemon.types.map((type) {
-                                return _TypeChip(typeName: type.name);
+                                return PokemonTypeChipWidget(
+                                  typeName: type.name,
+                                );
                               }).toList(),
                             ),
                           ],
@@ -259,36 +262,6 @@ class _PokemonCardWidgetState extends State<PokemonCardWidget>
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _TypeChip extends StatelessWidget {
-  final String typeName;
-
-  const _TypeChip({required this.typeName});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.25),
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.3),
-          width: 1,
-        ),
-      ),
-      child: Text(
-        typeName.capitalize,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 10.sp,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.3,
         ),
       ),
     );
