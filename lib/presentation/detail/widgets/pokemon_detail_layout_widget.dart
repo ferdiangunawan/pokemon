@@ -109,9 +109,8 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
     final screenWidth = size.width;
-    final screenHeight = size.height;
 
-    // Use fixed pixel values for landscape to avoid ScreenUtil issues
+    // Use ScreenUtil for consistent sizing
     final leftPanelWidth = screenWidth * 0.42;
 
     return Row(
@@ -123,12 +122,9 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
             children: [
               // Pokeball watermark
               Positioned(
-                bottom: -screenHeight * 0.05,
-                left: -screenWidth * 0.05,
-                child: PokeballWatermarkWidget(
-                  size: screenHeight * 0.45,
-                  opacity: 0.1,
-                ),
+                bottom: -40.h,
+                left: -40.w,
+                child: PokeballWatermarkWidget(size: 180.h, opacity: 0.1),
               ),
               // Content
               Column(
@@ -141,23 +137,20 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
                     child: Center(
                       child: SingleChildScrollView(
                         padding: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.02,
-                          horizontal: screenWidth * 0.02,
+                          vertical: 12.h,
+                          horizontal: 12.w,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            PokemonImageWidget(
-                              pokemon: pokemon,
-                              size: screenHeight * 0.42,
-                            ),
-                            SizedBox(height: screenHeight * 0.02),
+                            PokemonImageWidget(pokemon: pokemon, size: 200.h),
+                            SizedBox(height: 12.h),
                             PokemonTypeChipsWidget(
                               pokemon: pokemon,
                               isLandscape: true,
                             ),
-                            SizedBox(height: screenHeight * 0.02),
+                            SizedBox(height: 12.h),
                             // Pokemon stats summary in landscape
                             _buildQuickStats(context, pokemon),
                           ],
@@ -177,11 +170,10 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
             child: SlideTransition(
               position: slideAnimation,
               child: Container(
+                margin: EdgeInsets.symmetric(vertical: 16.h),
                 decoration: BoxDecoration(
                   color: theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(screenWidth * 0.05),
-                  ),
+                  borderRadius: BorderRadius.circular(24.r),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.1),
@@ -191,9 +183,7 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
                   ],
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(screenWidth * 0.05),
-                  ),
+                  borderRadius: BorderRadius.circular(24.r),
                   child: PokemonDetailTabContentWidget(
                     pokemon: pokemon,
                     state: state,
@@ -209,39 +199,38 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
   }
 
   Widget _buildQuickStats(BuildContext context, Pokemon pokemon) {
-    final size = MediaQuery.of(context).size;
-    final screenWidth = size.width;
-    final screenHeight = size.height;
-
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
-      padding: EdgeInsets.symmetric(
-        horizontal: screenWidth * 0.035,
-        vertical: screenHeight * 0.025,
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          QuickStatItem(
-            label: LocaleKeys.detailHeight.tr(),
-            value: pokemon.formattedHeight,
-            icon: Icons.height_rounded,
+          Flexible(
+            child: QuickStatItem(
+              label: LocaleKeys.detailHeight.tr(),
+              value: pokemon.formattedHeight,
+              icon: Icons.height_rounded,
+              isLandscape: true,
+            ),
           ),
           Container(
             width: 1,
-            height: screenHeight * 0.05,
-            margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.025),
+            height: 32,
+            margin: const EdgeInsets.symmetric(horizontal: 16),
             color: Colors.white.withValues(alpha: 0.3),
           ),
-          QuickStatItem(
-            label: LocaleKeys.detailWeight.tr(),
-            value: pokemon.formattedWeight,
-            icon: Icons.fitness_center_rounded,
+          Flexible(
+            child: QuickStatItem(
+              label: LocaleKeys.detailWeight.tr(),
+              value: pokemon.formattedWeight,
+              icon: Icons.fitness_center_rounded,
+              isLandscape: true,
+            ),
           ),
         ],
       ),
