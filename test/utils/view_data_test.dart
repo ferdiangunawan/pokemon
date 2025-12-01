@@ -43,16 +43,25 @@ void main() {
       expect(viewData.message, equals('error message'));
     });
 
-    test('copyWith should create new instance with updated values', () {
-      final original = ViewData<String>.initial();
+    test('copyWith should create new instance with updated status', () {
+      final original = ViewData<String>.loaded(data: 'initial data');
+      final updated = original.copyWith(status: ViewState.loading);
+
+      expect(updated.isLoading, isTrue);
+      expect(updated.data, equals('initial data'));
+      expect(original.isHasData, isTrue);
+    });
+
+    test('copyWith should preserve data when only status changes', () {
+      final original = ViewData<String>.loaded(data: 'test data');
       final updated = original.copyWith(
-        status: ViewState.hasData,
-        data: 'new data',
+        status: ViewState.error,
+        message: 'error',
       );
 
-      expect(updated.isHasData, isTrue);
-      expect(updated.data, equals('new data'));
-      expect(original.isInitial, isTrue);
+      expect(updated.isError, isTrue);
+      expect(updated.data, equals('test data'));
+      expect(updated.message, equals('error'));
     });
   });
 }

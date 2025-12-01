@@ -1,17 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
-import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
 import '../../../core/index.dart';
-import '../../../core/theme/app_colors.dart';
 import '../../../domain/index.dart';
 import '../cubit/index.dart';
 import '../widgets/index.dart';
+import '../widgets/pokemon_detail_states_widget.dart';
 
 /// Pokemon detail page with tabs for About, Stats, Evolution, Moves
 /// Enhanced with animations, responsive layouts, and better UX
@@ -81,11 +77,13 @@ class _PokemonDetailContentState extends State<_PokemonDetailContent>
         final pokemon = state.pokemon;
 
         if (state.pokemonLoadData.isLoading && pokemon == null) {
-          return _buildLoadingState(context);
+          return const PokemonDetailLoadingWidget();
         }
 
         if (state.pokemonLoadData.isError && pokemon == null) {
-          return _buildErrorState(context, state);
+          return PokemonDetailErrorWidget(
+            pokemonId: context.read<PokemonDetailCubit>().state.pokemon?.id,
+          );
         }
 
         if (pokemon == null) return const SizedBox.shrink();
@@ -122,89 +120,6 @@ class _PokemonDetailContentState extends State<_PokemonDetailContent>
           ),
         );
       },
-    );
-  }
-
-  Widget _buildLoadingState(BuildContext context) {
-    final theme = Theme.of(context);
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0.8, end: 1.2),
-              duration: const Duration(milliseconds: 800),
-              curve: Curves.easeInOut,
-              builder: (context, value, child) {
-                return Transform.scale(
-                  scale: value,
-                  child: Icon(
-                    Icons.catching_pokemon,
-                    size: 64.sp,
-                    color: theme.primaryColor.withValues(alpha: 0.6),
-                  ),
-                );
-              },
-            ),
-            Gap(16.h),
-            SizedBox(
-              width: 40.w,
-              height: 40.h,
-              child: CircularProgressIndicator(
-                strokeWidth: 3,
-                color: theme.primaryColor,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildErrorState(BuildContext context, PokemonDetailState state) {
-    final theme = Theme.of(context);
-    return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(32.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.all(24.w),
-                decoration: BoxDecoration(
-                  color: AppColors.error.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.error_outline_rounded,
-                  size: 48.sp,
-                  color: AppColors.red400,
-                ),
-              ),
-              Gap(24.h),
-              Text(
-                LocaleKeys.commonError.tr(),
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Gap(24.h),
-              ElevatedButton.icon(
-                onPressed: () {
-                  final pokemonId =
-                      context.read<PokemonDetailCubit>().state.pokemon?.id ?? 1;
-                  context.read<PokemonDetailCubit>().refresh(pokemonId);
-                },
-                icon: const Icon(Icons.refresh_rounded),
-                label: Text(LocaleKeys.homeRetry.tr()),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 

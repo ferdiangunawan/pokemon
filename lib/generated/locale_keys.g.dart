@@ -71,4 +71,11 @@ abstract class LocaleKeys {
   static const commonOk = 'common.ok';
   static const commonMeters = 'common.meters';
   static const commonKilograms = 'common.kilograms';
+  static const commonPageNotFound = 'common.page_not_found';
+  static const commonGoHome = 'common.go_home';
+  static const statsRatingLegendary = 'stats.rating_legendary';
+  static const statsRatingExcellent = 'stats.rating_excellent';
+  static const statsRatingGood = 'stats.rating_good';
+  static const statsRatingAverage = 'stats.rating_average';
+  static const statsRatingBelowAverage = 'stats.rating_below_average';
 }

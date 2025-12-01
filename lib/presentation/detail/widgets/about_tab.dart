@@ -92,7 +92,7 @@ class _AboutTabState extends State<AboutTab>
           _buildInfoSection(context, primaryColor, [
             _InfoRow(
               label: LocaleKeys.detailSpecies.tr(),
-              value: widget.species?.genus ?? 'Unknown',
+              value: widget.species?.genus ?? LocaleKeys.detailUnknown.tr(),
               icon: Icons.category_rounded,
             ),
             _InfoRow(

@@ -81,6 +81,15 @@
         "cancel": "Cancel",
         "ok": "OK",
         "meters": "m",
-        "kilograms": "kg"
+        "kilograms": "kg",
+        "page_not_found": "Page not found",
+        "go_home": "Go Home"
+    },
+    "stats": {
+        "rating_legendary": "Legendary",
+        "rating_excellent": "Excellent",
+        "rating_good": "Good",
+        "rating_average": "Average",
+        "rating_below_average": "Below Average"
     }
 }

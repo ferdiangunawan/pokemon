@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../generated/locale_keys.g.dart';
 import '../theme/app_colors.dart';
 import '../../domain/index.dart';
 import '../../presentation/index.dart';
@@ -46,7 +48,7 @@ class AppRouter {
             const Icon(Icons.error_outline, size: 64, color: AppColors.error),
             const SizedBox(height: 16),
             Text(
-              'Page not found',
+              LocaleKeys.commonPageNotFound.tr(),
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 8),
@@ -57,7 +59,7 @@ class AppRouter {
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () => context.go('/home'),
-              child: const Text('Go Home'),
+              child: Text(LocaleKeys.commonGoHome.tr()),
             ),
           ],
         ),
