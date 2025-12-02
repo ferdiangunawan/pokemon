@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../domain/index.dart';
@@ -145,12 +146,12 @@ class PokemonDetailLandscapeLayoutWidget extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             PokemonImageWidget(pokemon: pokemon, size: 200.h),
-                            SizedBox(height: 12.h),
+                            Gap(12.h),
                             PokemonTypeChipsWidget(
                               pokemon: pokemon,
                               isLandscape: true,
                             ),
-                            SizedBox(height: 12.h),
+                            Gap(12.h),
                             // Pokemon stats summary in landscape
                             _buildQuickStats(context, pokemon),
                           ],

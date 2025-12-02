@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
@@ -82,7 +83,7 @@ class _AboutTabWidgetState extends State<AboutTabWidget>
                       color: primaryColor.withValues(alpha: 0.5),
                       size: iconSize,
                     ),
-                    SizedBox(width: gapSmall),
+                    Gap(gapSmall),
                     Expanded(
                       child: Text(
                         widget.species!.description!,
@@ -100,7 +101,7 @@ class _AboutTabWidgetState extends State<AboutTabWidget>
                 ),
               ),
             ),
-            SizedBox(height: gapMedium),
+            Gap(gapMedium),
           ],
 
           // Basic info section with staggered animation
@@ -128,7 +129,7 @@ class _AboutTabWidgetState extends State<AboutTabWidget>
               icon: Icons.auto_awesome_rounded,
             ),
           ]),
-          SizedBox(height: gapMedium),
+          Gap(gapMedium),
 
           // Gender section with visual progress bar
           if (widget.species != null) ...[
@@ -137,14 +138,14 @@ class _AboutTabWidgetState extends State<AboutTabWidget>
               icon: Icons.wc_rounded,
               isLandscape: isLandscape,
             ),
-            SizedBox(height: gapSmall),
+            Gap(gapSmall),
             _buildGenderInfo(
               context,
               widget.species!,
               primaryColor,
               isLandscape,
             ),
-            SizedBox(height: gapMedium),
+            Gap(gapMedium),
           ],
 
           // Egg groups with chips
@@ -155,7 +156,7 @@ class _AboutTabWidgetState extends State<AboutTabWidget>
               icon: Icons.egg_rounded,
               isLandscape: isLandscape,
             ),
-            SizedBox(height: gapSmall),
+            Gap(gapSmall),
             Wrap(
               spacing: isLandscape ? size.width * 0.01 : 10.w,
               runSpacing: isLandscape ? size.height * 0.015 : 8.h,
@@ -272,7 +273,7 @@ class _AboutTabWidgetState extends State<AboutTabWidget>
                           color: primaryColor,
                         ),
                       ),
-                      SizedBox(width: isLandscape ? size.width * 0.012 : 14.w),
+                      Gap(isLandscape ? size.width * 0.012 : 14.w),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -354,7 +355,7 @@ class _AboutTabWidgetState extends State<AboutTabWidget>
               color: Colors.grey,
               size: iconSize,
             ),
-            SizedBox(width: gapSmall),
+            Gap(gapSmall),
             Text(
               LocaleKeys.detailGenderless.tr(),
               style: TextStyle(
@@ -436,7 +437,7 @@ class _AboutTabWidgetState extends State<AboutTabWidget>
               );
             },
           ),
-          SizedBox(height: gapMedium),
+          Gap(gapMedium),
           // Gender labels
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -489,7 +490,7 @@ class _SectionTitle extends StatelessWidget {
     return Row(
       children: [
         Icon(icon, size: iconSize, color: theme.hintColor),
-        SizedBox(width: gapWidth),
+        Gap(gapWidth),
         Text(
           title,
           style: theme.textTheme.titleMedium?.copyWith(
@@ -531,7 +532,7 @@ class _GenderLabel extends StatelessWidget {
         Row(
           children: [
             Icon(icon, color: color, size: iconSize),
-            SizedBox(width: gapSmall),
+            Gap(gapSmall),
             Text(
               label,
               style: TextStyle(
@@ -541,7 +542,7 @@ class _GenderLabel extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: gapTiny),
+        Gap(gapTiny),
         Text(
           '${percentage.toStringAsFixed(1)}%',
           style: TextStyle(

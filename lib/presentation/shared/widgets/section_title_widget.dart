@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 /// Section title widget with icon
 class SectionTitleWidget extends StatelessWidget {
@@ -24,7 +25,7 @@ class SectionTitleWidget extends StatelessWidget {
     return Row(
       children: [
         Icon(icon, size: iconSize, color: theme.hintColor),
-        SizedBox(width: gapWidth),
+        Gap(gapWidth),
         Text(
           title,
           style: theme.textTheme.titleMedium?.copyWith(
@@ -68,7 +69,7 @@ class GenderLabelWidget extends StatelessWidget {
         Row(
           children: [
             Icon(icon, color: color, size: iconSize),
-            SizedBox(width: gapSmall),
+            Gap(gapSmall),
             Text(
               label,
               style: TextStyle(
@@ -78,7 +79,7 @@ class GenderLabelWidget extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: gapTiny),
+        Gap(gapTiny),
         Text(
           '${percentage.toStringAsFixed(1)}%',
           style: TextStyle(

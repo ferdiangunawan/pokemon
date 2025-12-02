@@ -61,7 +61,7 @@ class PokemonDetailHeaderWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: gap),
+          Gap(gap),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

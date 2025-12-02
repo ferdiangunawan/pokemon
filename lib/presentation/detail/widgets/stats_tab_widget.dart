@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
@@ -69,7 +70,7 @@ class _StatsTabWidgetState extends State<StatsTabWidget>
               ),
             );
           }),
-          SizedBox(height: gapMedium),
+          Gap(gapMedium),
           // Total stats with enhanced design
           TweenAnimationBuilder<double>(
             tween: Tween(begin: 0.0, end: 1.0),
@@ -90,7 +91,7 @@ class _StatsTabWidgetState extends State<StatsTabWidget>
               isLandscape: isLandscape,
             ),
           ),
-          SizedBox(height: gapSmall),
+          Gap(gapSmall),
           // Stat distribution chart hint
           Container(
             padding: EdgeInsets.all(isLandscape ? size.width * 0.012 : 12.w),
@@ -108,7 +109,7 @@ class _StatsTabWidgetState extends State<StatsTabWidget>
                   size: isLandscape ? size.height * 0.04 : 18.sp,
                   color: theme.hintColor,
                 ),
-                SizedBox(width: isLandscape ? size.width * 0.008 : 8.w),
+                Gap(isLandscape ? size.width * 0.008 : 8.w),
                 Expanded(
                   child: Text(
                     'Max stat value: ${ApiConstants.maxStatValue}',
@@ -213,7 +214,7 @@ class _StatBar extends StatelessWidget {
               textAlign: TextAlign.right,
             ),
           ),
-          SizedBox(width: gapWidth),
+          Gap(gapWidth),
           Expanded(
             child: TweenAnimationBuilder<double>(
               duration: Duration(milliseconds: 600 + (index * 100)),
@@ -348,7 +349,7 @@ class _TotalStatBar extends StatelessWidget {
                       size: iconSize,
                     ),
                   ),
-                  SizedBox(width: gapWidth),
+                  Gap(gapWidth),
                   Text(
                     LocaleKeys.detailTotal.tr(),
                     style: TextStyle(
@@ -391,7 +392,7 @@ class _TotalStatBar extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: gapHeight),
+          Gap(gapHeight),
           TweenAnimationBuilder<double>(
             duration: const Duration(milliseconds: 1000),
             curve: Curves.easeOutCubic,

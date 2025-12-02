@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 import '../../../generated/locale_keys.g.dart';
 import '../../../common/index.dart';
@@ -65,7 +66,7 @@ class _MovesTabWidgetState extends State<MovesTabWidget>
                 color: theme.hintColor.withValues(alpha: 0.5),
               ),
             ),
-            SizedBox(height: gapHeight),
+            Gap(gapHeight),
             Text(
               LocaleKeys.detailNoMoves.tr(),
               style: theme.textTheme.bodyLarge?.copyWith(
@@ -217,7 +218,7 @@ class _MoveTabLabel extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: iconSize),
-          SizedBox(width: gapWidth),
+          Gap(gapWidth),
           Text('$text ($count)'),
         ],
       ),
@@ -274,7 +275,7 @@ class _MovesList extends StatelessWidget {
               size: emptyIconSize,
               color: theme.hintColor.withValues(alpha: 0.4),
             ),
-            SizedBox(height: emptyGapHeight),
+            Gap(emptyGapHeight),
             Text(
               LocaleKeys.detailNoMovesCategory.tr(),
               style: TextStyle(color: theme.hintColor, fontSize: emptyFontSize),
@@ -372,9 +373,8 @@ class _MovesList extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(width: gapWidth),
+                        Gap(gapWidth),
                       ],
-                      // Move icon
                       Container(
                         padding: EdgeInsets.all(iconPadding),
                         decoration: BoxDecoration(
@@ -389,7 +389,7 @@ class _MovesList extends StatelessWidget {
                           color: primaryColor,
                         ),
                       ),
-                      SizedBox(width: gapSmall),
+                      Gap(gapSmall),
                       Expanded(
                         child: Text(
                           move.name.toReadable,
