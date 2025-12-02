@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../common/index.dart';
 
@@ -41,14 +42,16 @@ class NetworkClient {
       ),
     );
 
-    // Add logging interceptor in debug mode
-    _dio.interceptors.add(
-      LogInterceptor(
-        requestBody: true,
-        responseBody: true,
-        logPrint: (obj) => print('🌐 $obj'),
-      ),
-    );
+    // Add logging interceptor in debug mode only
+    if (kDebugMode) {
+      _dio.interceptors.add(
+        LogInterceptor(
+          requestBody: true,
+          responseBody: true,
+          logPrint: (obj) => debugPrint('🌐 $obj'),
+        ),
+      );
+    }
 
     _isInitialized = true;
   }

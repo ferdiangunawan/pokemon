@@ -158,7 +158,7 @@ class _HomePageContentState extends State<_HomePageContent>
                                             size: iconSize,
                                           ),
                                         ),
-                                        SizedBox(width: titleGap),
+                                        Gap(titleGap),
                                         Text(
                                           LocaleKeys.homeTitle.tr(),
                                           style: theme.textTheme.headlineMedium
@@ -181,10 +181,8 @@ class _HomePageContentState extends State<_HomePageContent>
                                               _showLanguageDialog(context),
                                           isLandscape: isLandscape,
                                         ),
-                                        SizedBox(
-                                          width: isLandscape
-                                              ? size.width * 0.01
-                                              : 8.w,
+                                        Gap(
+                                          isLandscape ? size.width * 0.01 : 8.w,
                                         ),
                                         BlocBuilder<ThemeCubit, ThemeState>(
                                           builder: (context, state) {
@@ -208,11 +206,11 @@ class _HomePageContentState extends State<_HomePageContent>
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: searchGap),
+                                Gap(searchGap),
                                 PokemonSearchBarWidget(
                                   isLandscape: isLandscape,
                                 ),
-                                SizedBox(height: bottomGap),
+                                Gap(bottomGap),
                               ],
                             ),
                           ),
@@ -222,9 +220,7 @@ class _HomePageContentState extends State<_HomePageContent>
                       PokemonGridWidget(isLandscape: isLandscape),
                       // Bottom spacing
                       SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: isLandscape ? size.height * 0.05 : 20.h,
-                        ),
+                        child: Gap(isLandscape ? size.height * 0.05 : 20.h),
                       ),
                     ],
                   ),
@@ -267,14 +263,14 @@ class _HomePageContentState extends State<_HomePageContent>
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: size.height * 0.03),
+                Gap(size.height * 0.03),
                 LandscapeLanguageOptionWidget(
                   title: LocaleKeys.settingsEnglish.tr(),
                   subtitle: 'English',
                   locale: const Locale('en'),
                   isSelected: context.locale == const Locale('en'),
                 ),
-                SizedBox(height: size.height * 0.02),
+                Gap(size.height * 0.02),
                 LandscapeLanguageOptionWidget(
                   title: LocaleKeys.settingsIndonesian.tr(),
                   subtitle: 'Bahasa Indonesia',

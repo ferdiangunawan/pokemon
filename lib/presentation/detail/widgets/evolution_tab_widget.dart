@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../generated/locale_keys.g.dart';
@@ -58,7 +59,7 @@ class _EvolutionTabWidgetState extends State<EvolutionTabWidget>
                 color: theme.primaryColor,
               ),
             ),
-            SizedBox(height: gapHeight),
+            Gap(gapHeight),
             Text(
               LocaleKeys.commonLoading.tr(),
               style: TextStyle(
@@ -88,7 +89,7 @@ class _EvolutionTabWidgetState extends State<EvolutionTabWidget>
                 color: theme.hintColor.withValues(alpha: 0.5),
               ),
             ),
-            SizedBox(height: gapHeight),
+            Gap(gapHeight),
             Text(
               LocaleKeys.detailNoEvolution.tr(),
               style: theme.textTheme.bodyLarge?.copyWith(
@@ -265,7 +266,7 @@ class _EvolutionCardState extends State<_EvolutionCard> {
                 ),
               ],
             ),
-            SizedBox(height: gapSmall),
+            Gap(gapSmall),
             // Pokemon name
             Text(
               widget.stage.pokemonName.capitalize,
@@ -275,7 +276,7 @@ class _EvolutionCardState extends State<_EvolutionCard> {
                 letterSpacing: -0.3,
               ),
             ),
-            SizedBox(height: gapTiny),
+            Gap(gapTiny),
             // Pokemon ID badge
             Container(
               padding: EdgeInsets.symmetric(
@@ -385,7 +386,7 @@ class _EvolutionArrow extends StatelessWidget {
                 size: arrowIconSize,
               ),
             ),
-            SizedBox(height: gapHeight),
+            Gap(gapHeight),
             // Evolution info container
             Container(
               padding: EdgeInsets.symmetric(
@@ -408,7 +409,7 @@ class _EvolutionArrow extends StatelessWidget {
                       size: iconSize,
                       color: theme.primaryColor,
                     ),
-                    SizedBox(width: gapWidth),
+                    Gap(gapWidth),
                     Text(
                       'Lv. $minLevel',
                       style: TextStyle(
@@ -419,13 +420,13 @@ class _EvolutionArrow extends StatelessWidget {
                     ),
                   ],
                   if (item != null) ...[
-                    if (minLevel != null) SizedBox(width: gapWidthMedium),
+                    if (minLevel != null) Gap(gapWidthMedium),
                     Icon(
                       Icons.inventory_2_rounded,
                       size: iconSize,
                       color: Colors.amber[700],
                     ),
-                    SizedBox(width: gapWidth),
+                    Gap(gapWidth),
                     Text(
                       item!.toReadable,
                       style: TextStyle(
@@ -443,7 +444,7 @@ class _EvolutionArrow extends StatelessWidget {
                       size: iconSize,
                       color: AppColors.purple400,
                     ),
-                    SizedBox(width: gapWidth),
+                    Gap(gapWidth),
                     Text(
                       trigger!.toReadable,
                       style: TextStyle(

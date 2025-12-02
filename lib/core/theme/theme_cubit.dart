@@ -8,20 +8,20 @@ part 'theme_state.dart';
 /// Cubit for managing app theme (light/dark mode)
 class ThemeCubit extends Cubit<ThemeState> {
   static const String _themeKey = 'theme_mode';
+  final SharedPreferences _prefs;
 
-  ThemeCubit() : super(const ThemeState(themeMode: ThemeMode.system));
+  ThemeCubit(this._prefs)
+    : super(const ThemeState(themeMode: ThemeMode.system));
 
   /// Load saved theme from preferences
-  Future<void> loadTheme() async {
-    final prefs = await SharedPreferences.getInstance();
-    final themeIndex = prefs.getInt(_themeKey) ?? ThemeMode.system.index;
+  void loadTheme() {
+    final themeIndex = _prefs.getInt(_themeKey) ?? ThemeMode.system.index;
     emit(ThemeState(themeMode: ThemeMode.values[themeIndex]));
   }
 
   /// Set theme mode
   Future<void> setTheme(ThemeMode mode) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(_themeKey, mode.index);
+    await _prefs.setInt(_themeKey, mode.index);
     emit(ThemeState(themeMode: mode));
   }
 

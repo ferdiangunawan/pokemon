@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class QuickStatItem extends StatelessWidget {
   final String label;
@@ -27,7 +28,7 @@ class QuickStatItem extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(icon, size: iconSize, color: Colors.white.withValues(alpha: 0.9)),
-        SizedBox(width: spacing),
+        Gap(spacing),
         Flexible(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

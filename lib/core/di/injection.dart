@@ -24,7 +24,9 @@ Future<void> setupDependencies() async {
   await getIt.isReady<NetworkClient>();
 
   // Theme Cubit
-  getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit()..loadTheme());
+  getIt.registerLazySingleton<ThemeCubit>(
+    () => ThemeCubit(getIt<SharedPreferences>())..loadTheme(),
+  );
 
   // Data Sources
   getIt.registerLazySingleton<PokemonRemoteDataSource>(
