@@ -39,7 +39,7 @@ class PokemonDetailPortraitLayoutWidget extends StatelessWidget {
             children: [
               // White background container with tabs
               Positioned.fill(
-                top: 160.h,
+                top: 100.h,
                 child: FadeTransition(
                   opacity: fadeAnimation,
                   child: SlideTransition(
