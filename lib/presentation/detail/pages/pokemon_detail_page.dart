@@ -20,9 +20,8 @@ class PokemonDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          getIt<PokemonDetailCubit>()
-            ..loadPokemonDetail(pokemonId, initialPokemon: pokemon),
+      create: (_) => getIt<PokemonDetailCubit>()
+        ..loadPokemonDetail(pokemonId, initialPokemon: pokemon),
       child: const _PokemonDetailContent(),
     );
   }
@@ -56,11 +55,11 @@ class _PokemonDetailContentState extends State<_PokemonDetailContent>
     );
     _slideAnimation =
         Tween<Offset>(begin: const Offset(0, 0.1), end: Offset.zero).animate(
-          CurvedAnimation(
-            parent: _animationController,
-            curve: const Interval(0.2, 1.0, curve: Curves.easeOutCubic),
-          ),
-        );
+      CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0.2, 1.0, curve: Curves.easeOutCubic),
+      ),
+    );
     _animationController.forward();
   }
 
@@ -129,21 +128,45 @@ class _PokemonDetailContentState extends State<_PokemonDetailContent>
     Color typeColor,
     PokemonDetailState state,
   ) {
+    return _BodySectionView(
+      pokemon: pokemon,
+      state: state,
+      fadeAnimation: _fadeAnimation,
+      slideAnimation: _slideAnimation,
+    );
+  }
+}
+
+class _BodySectionView extends StatelessWidget {
+  final Pokemon pokemon;
+  final PokemonDetailState state;
+  final Animation<double> fadeAnimation;
+  final Animation<Offset> slideAnimation;
+
+  const _BodySectionView({
+    required this.pokemon,
+    required this.state,
+    required this.fadeAnimation,
+    required this.slideAnimation,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (context, orientation) {
         if (orientation == Orientation.landscape) {
           return PokemonDetailLandscapeLayoutWidget(
             pokemon: pokemon,
             state: state,
-            fadeAnimation: _fadeAnimation,
-            slideAnimation: _slideAnimation,
+            fadeAnimation: fadeAnimation,
+            slideAnimation: slideAnimation,
           );
         } else {
           return PokemonDetailPortraitLayoutWidget(
             pokemon: pokemon,
             state: state,
-            fadeAnimation: _fadeAnimation,
-            slideAnimation: _slideAnimation,
+            fadeAnimation: fadeAnimation,
+            slideAnimation: slideAnimation,
           );
         }
       },
