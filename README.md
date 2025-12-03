@@ -25,13 +25,90 @@ A beautiful Pokemon encyclopedia app built with Flutter following Clean Architec
 1. Clone the repository
 2. Install dependencies:
    ```bash
+   make get
+   # or
    flutter pub get
    ```
 
 3. Run the app:
    ```bash
+   make run
+   # or
    flutter run
    ```
+
+## Makefile Commands
+
+This project includes a Makefile with useful shortcuts. Run `make help` to see all available commands.
+
+### Quick Reference
+
+| Command | Description |
+|---------|-------------|
+| `make get` | Install dependencies |
+| `make clean` | Clean and reinstall dependencies |
+| `make run` | Run on default device |
+| `make run-android` | Run on Android |
+| `make run-ios` | Run on iOS |
+| `make run-web` | Run on web |
+| `make test` | Run all tests |
+| `make test-coverage` | Run tests with coverage |
+| `make analyze` | Run static analysis |
+| `make format` | Format Dart code |
+
+### Code Generation
+
+| Command | Description |
+|---------|-------------|
+| `make gen-icons` | Generate launcher icons |
+| `make gen-splash` | Generate native splash screen |
+| `make gen-localization` | Generate localization keys |
+| `make gen-all` | Generate all (icons + splash + localization) |
+
+### Build Commands
+
+| Command | Description |
+|---------|-------------|
+| `make build-apk` | Build Android APK |
+| `make build-appbundle` | Build Android App Bundle |
+| `make build-ios` | Build iOS |
+| `make build-web` | Build for web |
+
+## Code Generation
+
+This project uses code generation for:
+
+### 🎨 Launcher Icons
+
+Configuration: `flutter_launcher_icons.yaml`
+
+```bash
+make gen-icons
+# or
+dart run flutter_launcher_icons
+```
+
+Generates app icons for Android, iOS, Web, Windows, and macOS from `assets/images/pokeball.png`.
+
+### 💦 Native Splash Screen
+
+Configuration: `flutter_native_splash.yaml`
+
+```bash
+make gen-splash
+# or
+dart run flutter_native_splash:create
+```
+
+Generates native splash screens with the Pokeball logo on a grey background.
+
+### 🌍 Localization
+
+Translation files: `assets/translations/en.json`, `assets/translations/id.json`
+
+Generated keys: `lib/generated/locale_keys.g.dart`
+
+The app uses [easy_localization](https://pub.dev/packages/easy_localization) for internationalization.
 
 ## Architecture
 
@@ -66,6 +143,7 @@ lib/
 │   ├── home/         # Home feature
 │   ├── detail/       # Pokemon detail feature
 │   └── shared/       # Shared widgets
+├── generated/        # Generated code (locale keys)
 ├── app.dart          # App widget
 └── main.dart         # Entry point
 ```
@@ -83,19 +161,35 @@ lib/
 | cached_network_image | Image caching |
 | flutter_staggered_grid_view | Grid layout |
 
+### Dev Dependencies
+
+| Package | Purpose |
+|---------|---------|
+| flutter_launcher_icons | App icon generation |
+| flutter_native_splash | Splash screen generation |
+| flutter_lints | Linting rules |
+
 ## Testing
 
 Run unit tests:
 ```bash
+make test
+# or
 flutter test
 ```
 
 Run with coverage:
 ```bash
+make test-coverage
+# or
 flutter test --coverage
 ```
 
 ## API
 
 This app uses the [PokeAPI](https://pokeapi.co/) - a free RESTful Pokemon API.
+
+## License
+
+This project is for educational purposes.
 

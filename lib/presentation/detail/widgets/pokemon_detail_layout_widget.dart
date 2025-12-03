@@ -39,7 +39,7 @@ class PokemonDetailPortraitLayoutWidget extends StatelessWidget {
             children: [
               // White background container with tabs
               Positioned.fill(
-                top: 100.h,
+                top: 120.h,
                 child: FadeTransition(
                   opacity: fadeAnimation,
                   child: SlideTransition(
@@ -74,13 +74,17 @@ class PokemonDetailPortraitLayoutWidget extends StatelessWidget {
                 top: 0,
                 left: 0,
                 right: 0,
-                child: PokemonImageWidget(pokemon: pokemon),
+                child: IgnorePointer(
+                  child: PokemonImageWidget(pokemon: pokemon),
+                ),
               ),
               // Pokeball watermark
               Positioned(
                 top: 40.h,
                 right: -40.w,
-                child: const PokeballWatermarkWidget(size: 200),
+                child: const IgnorePointer(
+                  child: PokeballWatermarkWidget(size: 200),
+                ),
               ),
             ],
           ),
