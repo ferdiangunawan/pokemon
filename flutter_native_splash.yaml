@@ -1,24 +1,23 @@
 flutter_native_splash:
-  # Background color - Using app's primary Pokedex red
-  color: "#DC0A2D"
-  color_dark: "#1A1A2E"
+  # Background color - Using grey400 from AppColors for both light and dark mode
+  color: "#9CA3AF"
+  color_dark: "#9CA3AF"
 
-  # Since we don't have a pokemon ball icon image, we'll rely on text-based splash
-  # The background color will be the catchy Pokedex red from the app theme
-  # For Android 12+, we'll use a simple centered approach
+  # Pokeball logo centered on splash screen
+  image: assets/images/pokeball.png
 
   # Fullscreen mode for better immersion
   fullscreen: true
 
   # Android 12+ configuration
   android_12:
-    # Background color matching theme
-    color: "#DC0A2D"
-    color_dark: "#1A1A2E"
+    # Background color - grey for both modes
+    color: "#9CA3AF"
+    color_dark: "#9CA3AF"
 
-    # Icon background color - white circle background for contrast
-    icon_background_color: "#FFFFFF"
-    icon_background_color_dark: "#16213E"
+    # Pokeball icon for Android 12+
+    image: assets/images/pokeball.png
 
-    # For Android 12+, the app launcher icon will be used by default
-    # which provides a clean, native look
+    # Icon background color - grey for both modes
+    icon_background_color: "#9CA3AF"
+    icon_background_color_dark: "#9CA3AF"
